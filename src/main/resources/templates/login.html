@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Login Page</title>
+</head>
+<body>
+<nav>
+    <a th:href="@{/}">Home</a>
+    <a th:href="@{/login}">Login</a>
+</nav>
+<h1>Login</h1>
+<form th:action="@{/dashboard}" method="post">
+    <!-- You can have your username/password fields here -->
+    <button type="submit">Login</button>
+</form>
+</body>
+</html>
