@@ -7,11 +7,17 @@ import org.springframework.web.bind.annotation.PostMapping;
 @Controller
 public class AppController {
 
+    // landing page and home site routes
     @GetMapping("/")
     public String landingPage() {
         return "landing";
     }
 
+    @GetMapping("/contact")
+    public String contactPage() { return "contact"; }
+
+
+    // eFinance routes. Maybe make a different controller for these? prefix with /efinance or something
     @GetMapping("/login")
     public String loginPage() {
         return "login";
