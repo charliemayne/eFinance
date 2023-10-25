@@ -1,13 +1,16 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="landing_layout">
 <head>
     <title>Landing Page</title>
 </head>
 <body>
-<nav>
-    <a th:href="@{/}">Home</a>
-    <a th:href="@{/login}">Login</a>
-</nav>
-<h1>Welcome to the Landing Page</h1>
+    <!-- The content inside layout:fragment="content" will replace the placeholder in the layout -->
+    <section layout:fragment="content">
+        <h1>Landing page</h1>
+        <p>Welcome to the landing page.</p>
+        <!-- ... other page-specific content ... -->
+    </section>
 </body>
 </html>
