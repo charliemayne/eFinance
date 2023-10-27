@@ -13,23 +13,26 @@ public class AppController {
         return "landing";
     }
 
+    @GetMapping("/personal")
+    public String personalLoansPage() {
+        return "personal";
+    }
+
+    @GetMapping("/auto")
+    public String autoLoansPage() {
+        return "auto";
+    }
+
+    @GetMapping("/renovation")
+    public String renovationLoansPage() {
+        return "renovation";
+    }
+
+    @GetMapping("/business")
+    public String businessLoansPage() {
+        return "business";
+    }
+
     @GetMapping("/contact")
     public String contactPage() { return "contact"; }
-
-
-    // eFinance routes. Maybe make a different controller for these? prefix with /efinance or something
-    @GetMapping("/login")
-    public String loginPage() {
-        return "login";
-    }
-
-    @GetMapping("/dashboard")
-    public String dashboardPage() {
-        return "dashboard";
-    }
-
-    @PostMapping("/dashboard")
-    public String postDashboardPage() {
-        return "dashboard";
-    }
 }
