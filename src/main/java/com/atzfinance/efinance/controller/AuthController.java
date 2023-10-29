@@ -24,6 +24,11 @@ public class AuthController {
         return "login";
     }
 
+//    @PostMapping("/login")
+//    public String login() {
+//
+//    }
+
     @GetMapping("/register")
     public String registerPage(Model model) {
         RegistrationDto user = new RegistrationDto();
