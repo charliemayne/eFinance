@@ -1,12 +1,15 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="efinance_layout">
 <head>
-    <title>Dashboard</title>
+    <title>eFinance - Dashboard</title>
 </head>
 <body>
-<nav>
-    <a th:href="@{/}">Home</a>
-</nav>
-<h1>Hi, <span th:text="${username}"></span>!</h1>
+    <!-- The content inside layout:fragment="content" will replace the placeholder in the layout -->
+    <section layout:fragment="content">
+        <h1>Hi, <span th:text="${username}"></span>!</h1>
+        <!-- ... other page-specific content ... -->
+    </section>
 </body>
 </html>
