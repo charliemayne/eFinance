@@ -14,11 +14,12 @@ public class WebSecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
         http
                 .authorizeHttpRequests((requests) -> requests
-                        .requestMatchers("/css/**", "/js/**", "/assets/**", "/", "/personal", "/auto", "/renovation", "/business", "/contact").permitAll()
+                        .requestMatchers("/css/**", "/js/**", "/assets/**", "/", "/personal", "/auto", "/renovation", "/business", "/contact", "/register").permitAll()
                         .anyRequest().authenticated()
                 )
                 .formLogin((form) -> form
                         .loginPage("/login")
+                        .defaultSuccessUrl("/efinance", false)
                         .permitAll()
                 )
                 .logout((logout) -> logout.permitAll());

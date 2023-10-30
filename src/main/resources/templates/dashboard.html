@@ -6,8 +6,7 @@
 <body>
 <nav>
     <a th:href="@{/}">Home</a>
-    <a th:href="@{/login}">Login</a>
 </nav>
-<h1>Welcome to the Dashboard</h1>
+<h1>Hi, <span th:text="${username}"></span>!</h1>
 </body>
 </html>
