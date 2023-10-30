@@ -31,7 +31,10 @@
                     <a class="nav-link text-light" href="#">Link 2</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-light" href="#">Link 3</a>
+                    <form action="/logout" method="post" class="d-inline">
+                        <input type="hidden" name="_csrf" th:value="${_csrf.token}" />
+                        <button type="submit" class="btn btn-link">Logout</button>
+                    </form>
                 </li>
             </ul>
         </div>
