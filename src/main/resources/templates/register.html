@@ -8,45 +8,52 @@
 <body>
 <!-- The content inside layout:fragment="content" will replace the placeholder in the layout -->
 <section layout:fragment="content">
-    <div class="container mt-5">
-        <div th:if="${param.error}" class="alert alert-danger">
-            Invalid values.
-        </div>
-        <div class="login-form">
-            <form method="post" role="form" th:action="@{/register}">
-                <div class="form-group">
-                    <label>Username</label>
-                    <input
-                            id="username"
-                            type="text"
-                            class="form-control"
-                            placeholder="Username"
-                            name="username"
-                    >
+    <div class="container mt-5 mb-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-6 col-md-8">
+                <div th:if="${param.error}" class="alert alert-danger">
+                    Invalid values.
                 </div>
-                <div class="form-group">
-                    <label>Email</label>
-                    <input
-                            id="email"
-                            type="email"
-                            class="form-control"
-                            placeholder="Email"
-                            name="email"
-                    >
+                <h1 class="text-center">Register for eFinance</h1>
+                <div class="login-form">
+                    <form method="post" role="form" th:action="@{/register}">
+                        <div class="form-group">
+                            <label>Username</label>
+                            <input
+                                    id="username"
+                                    type="text"
+                                    class="form-control"
+                                    placeholder="Username"
+                                    name="username"
+                            >
+                        </div>
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input
+                                    id="email"
+                                    type="email"
+                                    class="form-control"
+                                    placeholder="Email"
+                                    name="email"
+                            >
+                        </div>
+                        <div class="form-group">
+                            <label>Password</label>
+                            <input
+                                    id="password"
+                                    type="password"
+                                    class="form-control"
+                                    placeholder="Password"
+                                    name="password"
+                            >
+                        </div>
+                        <div class="text-center">
+                            <a th:href="@{/login}" class="btn btn-black d-block mb-2">Already have an account? Log in here.</a>
+                            <button type="submit" value="Register" class="btn btn-secondary">Register</button>
+                        </div>
+                    </form>
                 </div>
-                <div class="form-group">
-                    <label>Password</label>
-                    <input
-                            id="password"
-                            type="password"
-                            class="form-control"
-                            placeholder="Password"
-                            name="password"
-                    >
-                </div>
-                <a th:href="@{/login}" class="btn btn-black">Already have an account? Log in here.</a>
-                <button type="submit" value="Register" class="btn btn-secondary">Register</button>
-            </form>
+            </div>
         </div>
     </div>
     <!-- ... other page-specific content ... -->
