@@ -11,7 +11,7 @@ import java.util.Optional;
 @Repository
 public interface LoanApplicationRepository extends JpaRepository<LoanApplication, Long> {
     Optional<LoanAccount> findByApplicationNumber(Long id);
-    Optional<LoanAccount> findByRequestedAmount(double amount);
+    Optional<LoanAccount> findByAmount(double amount);
     Optional<LoanAccount> findByStatus(boolean status);
 
 
