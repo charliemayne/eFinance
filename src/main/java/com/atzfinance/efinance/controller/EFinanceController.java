@@ -1,5 +1,7 @@
 package com.atzfinance.efinance.controller;
 
+import com.atzfinance.efinance.model.User;
+import com.atzfinance.efinance.security.SecurityUtil;
 import com.atzfinance.efinance.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,5 +25,10 @@ public class EFinanceController {
             model.addAttribute("username", principal.getName());
         }
         return "dashboard";
+    }
+
+    @GetMapping("/applyForLoan")
+    public String loanApplicationPage() {
+        return "loan_application_form";
     }
 }
