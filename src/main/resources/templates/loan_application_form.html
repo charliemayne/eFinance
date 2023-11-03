@@ -13,33 +13,34 @@
 
 <h1>Loan Application Form</h1>
 
-<form th:action="@{/submit}" method="post">
-  <div>
-    <label for="fullName">Full Name:</label>
-    <input type="text" id="fullName" name="fullName" required="required" th:value="${loanApplication.fullName}" />
-  </div>
+  <form th:action="@{/submit}" method="post">
+    <div>
+      <label for="fullName">Full Name:</label>
+      <input type="text" id="fullName" name="fullName" required="required" th:value="${loanApplication.fullName}" />
+    </div>
 
-  <div>
-    <label for="email">Email:</label>
-    <input type="email" id="email" name="email" required="required" th:value="${loanApplication.email}" />
-  </div>
+    <div>
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" required="required" th:value="${loanApplication.email}" />
+    </div>
 
-  <div>
-    <label for="loanAmount">Loan Amount:</label>
-    <input type="number" id="loanAmount" name="loanAmount" required="required" th:value="${loanApplication.loanAmount}" />
-  </div>
+    <div>
+      <label for="loanAmount">Loan Amount:</label>
+      <input type="number" id="loanAmount" name="loanAmount" required="required" th:value="${loanApplication.loanAmount}" />
+    </div>
 
-  <div>
-    <label for="loanPurpose">Loan Purpose:</label>
-    <select id="loanPurpose" name="loanPurpose" th:field="*{loanPurpose}">
-      <option value="Home">Home</option>
-      <option value="Car">Car</option>
-      <option value="Education">Education</option>
-      <option value="Other">Other</option>
-    </select>
-  </div>
+    <div>
+      <label for="loanPurpose">Loan Purpose:</label>
+      <select id="loanPurpose" name="loanPurpose" th:field="*{loanPurpose}">
+        <option value="Home">Home</option>
+        <option value="Car">Car</option>
+        <option value="Education">Education</option>
+        <option value="Other">Other</option>
+      </select>
+    </div>
 
-  <button type="submit">Submit</button>
-</form>
+    <button type="submit">Submit</button>
+  </form>
+</section>
 </body>
 </html>
