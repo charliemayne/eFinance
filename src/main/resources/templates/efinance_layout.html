@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <title>eFinance</title>
     <!-- Common CSS, JS, etc. -->
@@ -32,15 +33,28 @@
         <!-- Vertical Navbar -->
         <div class="col-md-2 bg-dark vh-100 vertical-center sticky-top">
             <ul class="nav flex-column w-100">
-                <li class="nav-item">
-                    <a class="nav-link active text-light" href="#"><i class="fas fa-home"></i>Dashboard</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link text-light" href="#"><i class="fas fa-link"></i>Link 1</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link text-light" href="#"><i class="fas fa-link"></i>Link 2</a>
-                </li>
+                <!-- employee sidebar content -->
+                <div sec:authorize="hasRole('ROLE_EMPLOYEE')">
+                    <!-- This content will only be displayed for users with the EMPLOYEE authority -->
+                    <!-- include links to the employee pages -->
+                    <p class="text-light">This is employee content</p>
+                </div>
+                <!-- Customer sidebar content -->
+                <div sec:authorize="hasRole('ROLE_CUSTOMER')">
+                    <!-- This content will only be displayed for users with the CUSTOMER authority -->
+                    <!-- include links to the customer pages -->
+                    <p class="text-light">This is customer content</p>
+                    <li class="nav-item">
+                        <a class="nav-link active text-light" href="/dashboard"><i class="fas fa-home"></i>Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-light" href="/myLoans"><i class="fas fa-link"></i>My Loans</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-light" href="/applyForLoan"><i class="fas fa-link"></i>Apply for Loan</a>
+                    </li>
+                </div>
+
                 <li class="nav-item">
                     <form action="/logout" method="post" class="d-inline">
                         <input type="hidden" name="_csrf" th:value="${_csrf.token}" />
