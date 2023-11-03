@@ -8,47 +8,49 @@
 <body>
 <!-- The content inside layout:fragment="content" will replace the placeholder in the layout -->
 <section layout:fragment="content">
-    <div class="container mt-5">
-        <div th:if="${param.error}" class="alert alert-danger">
-            Invalid values.
-        </div>
-        <div th:if="${param.logout}" class="alert alert-success">
-            You have been logged out.
-        </div>
-        <div th:if="${param.success}" class="alert alert-success">
-            You have successfully registered!
-        </div>
-        <div class="login-form">
-            <form method="post" role="form" th:action="@{/login}">
-                <div class="form-group">
-                    <label>Username</label>
-                    <input
-                        id="username"
-                        type="text"
-                        class="form-control"
-                        placeholder="Username"
-                        name="username"
-                        >
+    <div class="container mt-5 mb-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-6 col-md-8">
+                <div th:if="${param.error}" class="alert alert-danger">
+                    Invalid values.
                 </div>
-                <div class="form-group">
-                    <label>Password</label>
-                    <input
-                            id="password"
-                            type="password"
-                            class="form-control"
-                            placeholder="Password"
-                            name="password"
-                    >
+                <div th:if="${param.logout}" class="alert alert-success">
+                    You have been logged out.
                 </div>
-                <a th:href="@{/register}" class="btn btn-black">Don't have an account? Register here.</a>
-                <button type="submit" value="Log in" class="btn btn-secondary">Login</button>
-            </form>
+                <div th:if="${param.success}" class="alert alert-success">
+                    You have successfully registered!
+                </div>
+                <h1 class="text-center">Login to eFinance</h1>
+                <div class="login-form">
+                    <form method="post" role="form" th:action="@{/login}">
+                        <div class="form-group">
+                            <label>Username</label>
+                            <input
+                                    id="username"
+                                    type="text"
+                                    class="form-control"
+                                    placeholder="Username"
+                                    name="username"
+                            >
+                        </div>
+                        <div class="form-group">
+                            <label>Password</label>
+                            <input
+                                    id="password"
+                                    type="password"
+                                    class="form-control"
+                                    placeholder="Password"
+                                    name="password"
+                            >
+                        </div>
+                        <div class="text-center">
+                            <a th:href="@{/register}" class="btn btn-black d-block mb-2">Don't have an account? Register here.</a>
+                            <button type="submit" value="Log in" class="btn btn-secondary">Login</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
-<!--        <h1>Login</h1>-->
-<!--        <form th:action="@{/login}" method="post">-->
-<!--            &lt;!&ndash; You can have your username/password fields here &ndash;&gt;-->
-<!--            <button type="submit">Login</button>-->
-<!--        </form>-->
     </div>
     <!-- ... other page-specific content ... -->
 </section>

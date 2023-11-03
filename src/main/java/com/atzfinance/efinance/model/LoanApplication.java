@@ -19,28 +19,27 @@ public class LoanApplication {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long applicationNumber;
     private double amount;
-    private boolean status;
+    private boolean active;
+    private String applicantName;
+    private String purpose;
 
-    // generate application number
-    public void generateAppNumber() {
-
-    }
-    public long getApplicationNumber() {
-        return applicationNumber;
-    }
     public void setApplicationNumber(long applicationNumber) {
         this.applicationNumber = applicationNumber;
     }
-    public double getAmount() {
-        return amount;
-    }
+
     public void setAmount(double amount) {
         this.amount = amount;
     }
-    public boolean isStatus() {
-        return status;
+
+    public void setActive(boolean active) {
+        this.active = active;
     }
-    public void setStatus(boolean status) {
-        this.status = status;
+
+    public void setApplicantName(String applicantName) {
+        this.applicantName = applicantName;
+    }
+
+    public void setPurpose(String purpose) {
+        this.purpose = purpose;
     }
 }
