@@ -1,13 +1,12 @@
 package com.atzfinance.efinance.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.Date;
 
 @Getter
 @Setter
@@ -22,6 +21,11 @@ public class LoanApplication {
     private boolean active;
     private String applicantName;
     private String purpose;
+    private Date applicationDate;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private User applicantUser;
 
     public void setApplicationNumber(long applicationNumber) {
         this.applicationNumber = applicationNumber;

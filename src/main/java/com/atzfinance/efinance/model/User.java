@@ -22,6 +22,7 @@ public class User {
     private String username;
     private String email;
     private String password;
+
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(
             name = "users_roles",
@@ -29,4 +30,7 @@ public class User {
             inverseJoinColumns = {@JoinColumn(name = "role_id", referencedColumnName = "id")}
     )
     private List<Role> roles = new ArrayList<>();
+
+    @OneToMany(mappedBy = "applicantUser", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<LoanApplication> loanApplications;
 }

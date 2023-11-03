@@ -8,34 +8,43 @@
 </head>
 <body>
 
-<section layout:fragment="content">
+  <section layout:fragment="content">
 
-<h1>Loan Application Form</h1>
-
-  <form th:action="@{/submit}" method="post">
-
-    <div>
-      <label for="loanAmount">Loan Amount:</label>
-      <input type="number" id="loanAmount" name="loanAmount" required="required"  />
+    <div th:if="${param.error}" class="alert alert-danger">
+      Error submitting loan application.
     </div>
 
-    <div>
-      <label for="loanPurpose">Loan Purpose:</label>
-      <select id="loanPurpose" name="loanPurpose" >
-        <option value="Personal">Personal</option>
-        <option value="Auto">Auto</option>
-        <option value="Renovation">Renovation</option>
-        <option value="Business">Business</option>
-      </select>
+    <div th:if="${param.success}" class="alert alert-success">
+      Loan application successfully submitted!
     </div>
 
-    <div>
-      <label for="fullName">Full Name eSignature:</label>
-      <input type="text" id="fullName" name="fullName" required="required"  />
-    </div>
+    <h1>Loan Application Form</h1>
 
-    <button type="submit">Submit</button>
-  </form>
-</section>
+    <form method="post" role="form" th:action="@{/efinance/applyForLoan}">
+
+      <div>
+        <label for="loanAmount">Loan Amount:</label>
+        <input type="number" class="form-control" id="loanAmount" name="loanAmount" required="required"  />
+      </div>
+
+      <div>
+        <label for="loanPurpose">Loan Purpose:</label>
+        <select id="loanPurpose" name="loanPurpose" >
+          <option value="Personal">Personal</option>
+          <option value="Auto">Auto</option>
+          <option value="Renovation">Renovation</option>
+          <option value="Business">Business</option>
+        </select>
+      </div>
+
+      <div>
+        <label for="fullName">Full Name eSignature:</label>
+        <input type="text" class="form-control" id="fullName" name="fullName" required="required"  />
+      </div>
+
+      <button type="submit" value="applyForLoan" class="btn btn-secondary">Submit</button>
+    </form>
+
+  </section>
 </body>
 </html>
