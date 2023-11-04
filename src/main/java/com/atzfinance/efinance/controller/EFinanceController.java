@@ -1,6 +1,7 @@
 package com.atzfinance.efinance.controller;
 
 import com.atzfinance.efinance.dto.LoanApplicationDto;
+import com.atzfinance.efinance.model.LoanApplication;
 import com.atzfinance.efinance.model.User;
 import com.atzfinance.efinance.security.SecurityUtil;
 import com.atzfinance.efinance.service.LoanApplicationService;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.security.Principal;
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -33,6 +35,17 @@ public class EFinanceController {
             model.addAttribute("username", principal.getName());
         }
         return "dashboard";
+    }
+
+    @GetMapping("/myLoans")
+    public String customerLoansPage(Model model) {
+        Optional<User> user = userService.getUserByUsername(SecurityUtil.getSesstionUser());
+        List<LoanApplication> customersLoanApplications = null;
+        if (user.isPresent()) {
+            customersLoanApplications = loanApplicationService.getCustomersLoans(user.get().getUsername());
+        }
+        model.addAttribute("loanApplications", customersLoanApplications);
+        return "customer_loans";
     }
 
     @GetMapping("/applyForLoan")
