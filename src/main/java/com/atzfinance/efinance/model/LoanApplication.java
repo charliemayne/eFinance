@@ -19,7 +19,7 @@ public class LoanApplication {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long applicationNumber;
     private double amount;
-    private boolean active;
+    private boolean status;
     private String applicantName;
     private String purpose;
 
@@ -31,8 +31,8 @@ public class LoanApplication {
         this.amount = amount;
     }
 
-    public void setActive(boolean active) {
-        this.active = active;
+    public void setStatus(boolean status) {
+        this.status = status;
     }
 
     public void setApplicantName(String applicantName) {
