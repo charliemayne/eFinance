@@ -8,10 +8,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.security.Principal;
-import java.util.Optional;
 
 @Controller
-@RequestMapping("/efinance")
+@RequestMapping("/efinance/")
 public class EFinanceController {
 
     @Autowired
@@ -24,4 +23,14 @@ public class EFinanceController {
         }
         return "dashboard";
     }
+    @GetMapping("/myloans")
+    public String myloansPage() { return "myloans"; }
+    @GetMapping("/dashboard")
+    public String dashboardPage() { return "dashboard"; }
+    @GetMapping("/applyforloan")
+    public String applyforloanPage() {
+        return "loan_application_form";
+    }
+
+
 }

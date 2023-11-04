@@ -35,4 +35,5 @@ public class AppController {
 
     @GetMapping("/contact")
     public String contactPage() { return "contact"; }
+
 }
