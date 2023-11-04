@@ -28,7 +28,7 @@ public class EFinanceController {
     @GetMapping("/dashboard")
     public String dashboardPage() { return "dashboard"; }
     @GetMapping("/applyforloan")
-    public String applyforloanPage() {
+    public String applyloanPage() {
         return "loan_application_form";
     }
 
