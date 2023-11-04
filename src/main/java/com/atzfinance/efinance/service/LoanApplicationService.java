@@ -11,4 +11,5 @@ import java.util.List;
 public interface LoanApplicationService {
     void saveLoanApplication(LoanApplicationDto loanApplicationDto, User applicantUser);
     List<LoanApplication> getAllPendingLoanApplications();
+    List<LoanApplication> getCustomersLoans(String username);
 }

@@ -33,4 +33,9 @@ public class LoanApplicationServiceImpl implements LoanApplicationService {
     public List<LoanApplication> getAllPendingLoanApplications() {
         return loanApplicationRepository.findByActiveTrue();
     }
+
+    @Override
+    public List<LoanApplication> getCustomersLoans(String username) {
+        return loanApplicationRepository.findByApplicantUser_Username(username);
+    }
 }
