@@ -69,7 +69,8 @@ public class EFinanceController {
 
     @GetMapping("/reviewLoans")
     public String reviewLoanApplicationsPage(Model model) {
-
+        List<LoanApplication> loanApplications = loanApplicationService.getAllPendingLoanApplications();
+        model.addAttribute("loanApplications", loanApplications);
         return "review_loan_applications";
     }
 }

@@ -9,6 +9,21 @@
     <!-- The content inside layout:fragment="content" will replace the placeholder in the layout -->
     <section layout:fragment="content">
         <h1>Review Loan Applications</h1>
+
+        <div th:if="${#lists.isEmpty(loanApplications)}">
+            <p>No loan applications.</p>
+        </div>
+
+        <div th:unless="${#lists.isEmpty(loanApplications)}">
+            <div th:each="loanApp : ${loanApplications}">
+                <div class="loan-application">
+                    <h2>Application ID: <span th:text="${loanApp.applicationNumber}"></span></h2>
+                    <p>Applicant: <span th:text="${loanApp.applicantName}"></span></p>
+                    <p>Amount Requested: <span th:text="${loanApp.amount}"></span></p>
+                    <!-- Add more details as needed -->
+                </div>
+            </div>
+        </div>
     </section>
 </body>
 </html>
