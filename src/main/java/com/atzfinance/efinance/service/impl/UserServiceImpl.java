@@ -9,6 +9,7 @@ import com.atzfinance.efinance.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Arrays;
 import java.util.Optional;
@@ -32,6 +33,17 @@ public class UserServiceImpl implements UserService {
         newUser.setEmail(registration.getEmail());
         newUser.setPassword(passwordEncoder.encode(registration.getPassword()));
         Role role = roleRepository.findByName("CUSTOMER");
+        newUser.setRoles(Arrays.asList(role));
+        userRepository.save(newUser);
+    }
+
+    @Transactional
+    public void saveUser(String username, String password, String email, String roleName) {
+        User newUser = new User();
+        newUser.setUsername(username);
+        newUser.setPassword(passwordEncoder.encode(password));
+        newUser.setEmail(email);
+        Role role = roleRepository.findByName(roleName);
         newUser.setRoles(Arrays.asList(role));
         userRepository.save(newUser);
     }

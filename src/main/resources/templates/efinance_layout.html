@@ -38,6 +38,12 @@
                     <!-- This content will only be displayed for users with the EMPLOYEE authority -->
                     <!-- include links to the employee pages -->
                     <p class="text-light">This is employee content</p>
+                    <li class="nav-item">
+                        <a class="nav-link active text-light" href="/dashboard"><i class="fas fa-home"></i>Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active text-light" href="/reviewLoans"><i class="fas fa-home"></i>Review Loan Applications</a>
+                    </li>
                 </div>
                 <!-- Customer sidebar content -->
                 <div sec:authorize="hasRole('ROLE_CUSTOMER')">
