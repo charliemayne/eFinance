@@ -66,4 +66,10 @@ public class EFinanceController {
             return "redirect:/efinance/applyForLoan?error=true";
         }
     }
+
+    @GetMapping("/reviewLoans")
+    public String reviewLoanApplicationsPage(Model model) {
+
+        return "review_loan_applications";
+    }
 }
