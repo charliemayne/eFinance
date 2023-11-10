@@ -14,4 +14,5 @@ public interface LoanApplicationService {
     List<LoanApplication> getAllPendingLoanApplications();
     List<LoanApplication> getCustomersLoans(String username);
     Optional<LoanApplication> getByApplicationNumber(Long applicationNumber);
+    boolean markAsReadyForCustomer(Long applicationNumber);
 }

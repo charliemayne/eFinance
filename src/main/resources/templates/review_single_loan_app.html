@@ -22,12 +22,12 @@
 
         <!-- Action buttons -->
         <div class="mt-3">
-            <form th:action="@{efinance/approveLoan}" method="post">
+            <form method="post" role="form" th:action="@{/efinance/approveLoan}">
                 <input type="hidden" th:name="loanId" th:value="${loanApplication.applicationNumber}" />
                 <button type="submit" class="btn btn-success">Approve</button>
             </form>
 
-            <form th:action="@{efinance/denyLoan}" method="post" class="mt-2">
+            <form th:action="@{/efinance/denyLoan}" method="post" class="mt-2">
                 <input type="hidden" th:name="loanId" th:value="${loanApplication.applicationNumber}" />
                 <button type="submit" class="btn btn-danger">Deny</button>
             </form>

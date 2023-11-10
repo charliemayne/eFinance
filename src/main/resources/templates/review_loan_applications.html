@@ -8,6 +8,13 @@
 <body>
     <!-- The content inside layout:fragment="content" will replace the placeholder in the layout -->
     <section layout:fragment="content">
+        <div th:if="${param.approved}" class="alert alert-success">
+            Loan has been approved. Sent to customer to finalize.
+        </div>
+        <div th:if="${param.error}" class="alert alert-danger">
+            Error approving loan. Please try again.
+        </div>
+
         <h1>Review Loan Applications</h1>
 
         <div th:if="${#lists.isEmpty(loanApplications)}">

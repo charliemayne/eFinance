@@ -26,13 +26,14 @@ public class LoanApplicationServiceImpl implements LoanApplicationService {
         loanApplication.setAmount(loanApplicationDto.getLoanAmount());
         loanApplication.setApplicantUser(applicantUser);
         loanApplication.setActive(true);
+        loanApplication.setReadyForCustomer(false);
         loanApplication.setApplicationDate(new Date());
         loanApplicationRepository.save(loanApplication);
     }
 
     @Override
     public List<LoanApplication> getAllPendingLoanApplications() {
-        return loanApplicationRepository.findByActiveTrue();
+        return loanApplicationRepository.findByActiveTrueAndReadyForCustomerFalse();
     }
 
     @Override
@@ -43,5 +44,16 @@ public class LoanApplicationServiceImpl implements LoanApplicationService {
     @Override
     public Optional<LoanApplication> getByApplicationNumber(Long applicationNumber) {
         return loanApplicationRepository.findByApplicationNumber(applicationNumber);
+    }
+
+    @Override
+    public boolean markAsReadyForCustomer(Long applicationNumber) {
+        Optional<LoanApplication> loanApplication = loanApplicationRepository.findByApplicationNumber(applicationNumber);
+        if (loanApplication.isPresent()) {
+            loanApplication.get().setReadyForCustomer(true);
+            loanApplicationRepository.save(loanApplication.get());
+            return true;
+        }
+        return false;
     }
 }

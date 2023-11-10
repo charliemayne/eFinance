@@ -18,7 +18,10 @@ public class LoanApplication {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long applicationNumber;
     private double amount;
+    // shows if loan application is currently open
     private boolean active;
+    // shows if loan application is ready for customer approval
+    private boolean readyForCustomer;
     private String applicantName;
     private String purpose;
     private Date applicationDate;

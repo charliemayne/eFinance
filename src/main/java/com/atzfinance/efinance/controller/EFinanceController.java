@@ -79,4 +79,17 @@ public class EFinanceController {
         }
         return "review_single_loan_app";
     }
+
+    @PostMapping("/approveLoan")
+    public String approveLoan(@RequestParam("loanId") Long loanId, Model model) {
+        // mark loan as ready for customer
+        if (loanApplicationService.markAsReadyForCustomer(loanId)) {
+            // get updated list of loans to review
+            List<LoanApplication> loanApplications = loanApplicationService.getAllPendingLoanApplications();
+            model.addAttribute("loanApplications", loanApplications);
+            // redirect to loan review with success message
+            return "redirect:/efinance/reviewLoans?approved=true";
+        }
+        return "redirect:/efinance/reviewLoans?error=true";
+    }
 }
