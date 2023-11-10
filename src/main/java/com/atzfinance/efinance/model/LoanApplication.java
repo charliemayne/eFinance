@@ -20,6 +20,8 @@ public class LoanApplication {
     private double amount;
     // shows if loan application is currently open
     private boolean active;
+    // shows if loan has been approved by employee. Default should be false
+    private boolean approved;
     // shows if loan application is ready for customer approval
     private boolean readyForCustomer;
     private String applicantName;

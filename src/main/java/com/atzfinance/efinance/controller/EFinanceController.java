@@ -94,12 +94,25 @@ public class EFinanceController {
     @PostMapping("/approveLoan")
     public String approveLoan(@RequestParam("loanId") Long loanId, Model model) {
         // mark loan as ready for customer
-        if (loanApplicationService.markAsReadyForCustomer(loanId)) {
+        if (loanApplicationService.approveLoan(loanId)) {
             // get updated list of loans to review
             List<LoanApplication> loanApplications = loanApplicationService.getAllPendingLoanApplications();
             model.addAttribute("loanApplications", loanApplications);
             // redirect to loan review with success message
             return "redirect:/efinance/reviewLoans?approved=true";
+        }
+        return "redirect:/efinance/reviewLoans?error=true";
+    }
+
+    @PostMapping("/denyLoan")
+    public String denyLoan(@RequestParam("loanId") Long loanId, Model model) {
+        // mark loan as ready for customer
+        if (loanApplicationService.denyLoan(loanId)) {
+            //get updated list of loans to review
+            List<LoanApplication> loanApplications = loanApplicationService.getAllPendingLoanApplications();
+            model.addAttribute("loanApplications", loanApplications);
+            // redirect to loan review with successfully denied message
+            return "redirect:/efinance/reviewLoans?denied=true";
         }
         return "redirect:/efinance/reviewLoans?error=true";
     }

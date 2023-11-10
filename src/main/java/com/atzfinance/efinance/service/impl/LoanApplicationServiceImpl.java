@@ -47,9 +47,22 @@ public class LoanApplicationServiceImpl implements LoanApplicationService {
     }
 
     @Override
-    public boolean markAsReadyForCustomer(Long applicationNumber) {
+    public boolean approveLoan(Long applicationNumber) {
         Optional<LoanApplication> loanApplication = loanApplicationRepository.findByApplicationNumber(applicationNumber);
         if (loanApplication.isPresent()) {
+            loanApplication.get().setApproved(true);
+            loanApplication.get().setReadyForCustomer(true);
+            loanApplicationRepository.save(loanApplication.get());
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean denyLoan(Long applicationNumber) {
+        Optional<LoanApplication> loanApplication = loanApplicationRepository.findByApplicationNumber(applicationNumber);
+        if (loanApplication.isPresent()) {
+            loanApplication.get().setApproved(false);
             loanApplication.get().setReadyForCustomer(true);
             loanApplicationRepository.save(loanApplication.get());
             return true;

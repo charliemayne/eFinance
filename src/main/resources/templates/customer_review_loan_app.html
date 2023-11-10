@@ -23,14 +23,14 @@
         <!-- Action buttons -->
         <!-- needs to have accept funds and decline buttons if readyForCustomer -->
         <div th:if="${loanApplication.readyForCustomer}" class="mt-3">
-            <form method="post" role="form" th:action="@{}">
+            <form method="post" role="form" th:action="@{/efinance/acceptLoan}">
                 <input type="hidden" th:name="loanId" th:value="${loanApplication.applicationNumber}" />
-                <button type="submit" class="btn btn-success">Approve</button>
+                <button type="submit" class="btn btn-success">Accept Loan</button>
             </form>
 
-            <form th:action="@{}" method="post" class="mt-2">
+            <form th:action="@{/efinance/declineLoan}" method="post" class="mt-2">
                 <input type="hidden" th:name="loanId" th:value="${loanApplication.applicationNumber}" />
-                <button type="submit" class="btn btn-danger">Deny</button>
+                <button type="submit" class="btn btn-danger">Decline Loan</button>
             </form>
         </div>
     </div>

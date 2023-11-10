@@ -11,6 +11,9 @@
         <div th:if="${param.approved}" class="alert alert-success">
             Loan has been approved. Sent to customer to finalize.
         </div>
+        <div th:if="${param.denied}" class="alert alert-success">
+            Loan has been denied. Sent to customer to acknowledge.
+        </div>
         <div th:if="${param.error}" class="alert alert-danger">
             Error approving loan. Please try again.
         </div>
