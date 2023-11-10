@@ -37,7 +37,6 @@
                 <div sec:authorize="hasRole('ROLE_EMPLOYEE')">
                     <!-- This content will only be displayed for users with the EMPLOYEE authority -->
                     <!-- include links to the employee pages -->
-                    <p class="text-light">This is employee content</p>
                     <li class="nav-item">
                         <a class="nav-link active text-light" href="/efinance"><i class="fas fa-home"></i>Dashboard</a>
                     </li>
@@ -49,7 +48,6 @@
                 <div sec:authorize="hasRole('ROLE_CUSTOMER')">
                     <!-- This content will only be displayed for users with the CUSTOMER authority -->
                     <!-- include links to the customer pages -->
-                    <p class="text-light">This is customer content</p>
                     <li class="nav-item">
                         <a class="nav-link active text-light" href="/efinance"><i class="fas fa-home"></i>Dashboard</a>
                     </li>
