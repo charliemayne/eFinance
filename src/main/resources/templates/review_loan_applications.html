@@ -16,7 +16,7 @@
 
         <div th:unless="${#lists.isEmpty(loanApplications)}">
             <div th:each="loanApp : ${loanApplications}">
-                <a th:href="@{/reviewLoans/{id}(id=${loanApp.applicationNumber})}" style="text-decoration: none; color: inherit;">
+                <a th:href="@{/efinance/reviewLoans/{id}(id=${loanApp.applicationNumber})}" style="text-decoration: none; color: inherit;">
                     <div class="card h-100">
                         <div class="card-body">
                             <h2>Application ID: <span th:text="${loanApp.applicationNumber}"></span></h2>

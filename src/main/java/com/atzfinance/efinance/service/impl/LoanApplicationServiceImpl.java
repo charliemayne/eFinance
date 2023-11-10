@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class LoanApplicationServiceImpl implements LoanApplicationService {
@@ -37,5 +38,10 @@ public class LoanApplicationServiceImpl implements LoanApplicationService {
     @Override
     public List<LoanApplication> getCustomersLoans(String username) {
         return loanApplicationRepository.findByApplicantUser_Username(username);
+    }
+
+    @Override
+    public Optional<LoanApplication> getByApplicationNumber(Long applicationNumber) {
+        return loanApplicationRepository.findByApplicationNumber(applicationNumber);
     }
 }

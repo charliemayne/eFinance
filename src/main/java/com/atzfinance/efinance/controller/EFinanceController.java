@@ -73,6 +73,10 @@ public class EFinanceController {
 
     @GetMapping("/reviewLoans/{loanId}")
     public String reviewLoan(@PathVariable("loanId") Long loanId, Model model) {
-        return "<h1>Hi buddy</h1>";
+        Optional<LoanApplication> loanApplication = loanApplicationService.getByApplicationNumber(loanId);
+        if (loanApplication.isPresent()) {
+            model.addAttribute("loanApplication", loanApplication.get());
+        }
+        return "review_single_loan_app";
     }
 }

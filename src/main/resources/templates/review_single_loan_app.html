@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="efinance_layout">
+<head>
+    <title>eFinance - Review Loan Application</title>
+</head>
+<body>
+<!-- The content inside layout:fragment="content" will replace the placeholder in the layout -->
+<section layout:fragment="content">
+    <div class="container mt-4">
+        <h1>Loan Application Review</h1>
+        <div class="card">
+            <div class="card-body">
+                <h2 class="card-title">Application Details</h2>
+                <p>Application ID: <span th:text="${loanApplication.applicationNumber}"></span></p>
+                <p>Applicant Name: <span th:text="${loanApplication.applicantName}"></span></p>
+                <p>Requested Amount: <span th:text="${loanApplication.amount}"></span></p>
+                <!-- Add more loan application details as needed -->
+            </div>
+        </div>
+
+        <!-- Action buttons -->
+        <div class="mt-3">
+            <form th:action="@{efinance/approveLoan}" method="post">
+                <input type="hidden" th:name="loanId" th:value="${loanApplication.applicationNumber}" />
+                <button type="submit" class="btn btn-success">Approve</button>
+            </form>
+
+            <form th:action="@{efinance/denyLoan}" method="post" class="mt-2">
+                <input type="hidden" th:name="loanId" th:value="${loanApplication.applicationNumber}" />
+                <button type="submit" class="btn btn-danger">Deny</button>
+            </form>
+        </div>
+    </div>
+</section>
+</body>
+</html>
