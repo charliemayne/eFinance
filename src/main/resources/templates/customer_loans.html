@@ -17,13 +17,17 @@
 
         <div th:unless="${#lists.isEmpty(loanApplications)}">
             <div th:each="loanApp : ${loanApplications}">
-                <div class="loan-application">
-                    <h2>Application ID: <span th:text="${loanApp.applicationNumber}"></span></h2>
-                    <p>Applicant: <span th:text="${loanApp.applicantName}"></span></p>
-                    <p>Amount Requested: <span th:text="${loanApp.amount}"></span></p>
-                    <p>Waiting for approval: <span th:text="${loanApp.active}"></span></p>
-                    <!-- Add more details as needed -->
-                </div>
+                <a th:href="@{/efinance/reviewLoans/{id}(id=${loanApp.applicationNumber})}" style="text-decoration: none; color: inherit;">
+                    <div class="card h-100" th:styleappend="${loanApp.readyForCustomer} ? 'border-color: green;' : ''">
+                        <div class="card-body">
+                            <h2 th:if="${loanApp.readyForCustomer}" style="color: green">Ready to review!</h2>
+                            <h2><span th:text="${loanApp.purpose}"></span> Loan Application - ID: <span th:text="${loanApp.applicationNumber}"></span></h2>
+                            <p>Amount Requested: <span th:text="${loanApp.amount}"></span></p>
+                            <p>Applicant Name: <span th:text="${loanApp.applicantName}"></span></p>
+                            <!-- Add more details as needed -->
+                        </div>
+                    </div>
+                </a>
             </div>
         </div>
     </div>

@@ -34,6 +34,7 @@ public class EFinanceController {
         return "dashboard";
     }
 
+    // customer URLs (should update to be loanApplications before we start working with loan accounts and things get confusing
     @GetMapping("/myLoans")
     public String customerLoansPage(Model model) {
         Optional<User> user = userService.getUserByUsername(SecurityUtil.getSesstionUser());
@@ -43,6 +44,15 @@ public class EFinanceController {
         }
         model.addAttribute("loanApplications", customersLoanApplications);
         return "customer_loans";
+    }
+
+    @GetMapping("/myLoans/{loanId}")
+    public String customerLoanPage(@PathVariable("loanId") Long loanId, Model model) {
+        Optional<LoanApplication> loanApplication = loanApplicationService.getByApplicationNumber(loanId);
+        if (loanApplication.isPresent()) {
+            model.addAttribute("loanApplication", loanApplication);
+        }
+        return "customer_review_loan_app";
     }
 
     @GetMapping("/applyForLoan")
@@ -64,6 +74,7 @@ public class EFinanceController {
         }
     }
 
+    // employee URLs
     @GetMapping("/reviewLoans")
     public String reviewLoanApplicationsPage(Model model) {
         List<LoanApplication> loanApplications = loanApplicationService.getAllPendingLoanApplications();
