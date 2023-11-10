@@ -10,10 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 import java.util.List;
@@ -72,5 +69,10 @@ public class EFinanceController {
         List<LoanApplication> loanApplications = loanApplicationService.getAllPendingLoanApplications();
         model.addAttribute("loanApplications", loanApplications);
         return "review_loan_applications";
+    }
+
+    @GetMapping("/reviewLoans/{loanId}")
+    public String reviewLoan(@PathVariable("loanId") Long loanId, Model model) {
+        return "<h1>Hi buddy</h1>";
     }
 }
