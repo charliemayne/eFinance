@@ -38,7 +38,7 @@ public class LoanApplicationServiceImpl implements LoanApplicationService {
 
     @Override
     public List<LoanApplication> getCustomersLoans(String username) {
-        return loanApplicationRepository.findByApplicantUser_Username(username);
+        return loanApplicationRepository.findByApplicantUser_UsernameAndActiveTrue(username);
     }
 
     @Override
@@ -68,5 +68,14 @@ public class LoanApplicationServiceImpl implements LoanApplicationService {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public void acknowledgeDeniedLoan(Long applicationNumber) {
+        Optional<LoanApplication> loanApplication = loanApplicationRepository.findByApplicationNumber(applicationNumber);
+        if (loanApplication.isPresent()) {
+            loanApplication.get().setActive(false);
+            loanApplicationRepository.save(loanApplication.get());
+        }
     }
 }

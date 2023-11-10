@@ -50,9 +50,17 @@ public class EFinanceController {
     public String customerLoanPage(@PathVariable("loanId") Long loanId, Model model) {
         Optional<LoanApplication> loanApplication = loanApplicationService.getByApplicationNumber(loanId);
         if (loanApplication.isPresent()) {
-            model.addAttribute("loanApplication", loanApplication);
+            model.addAttribute("loanApplication", loanApplication.get());
         }
         return "customer_review_loan_app";
+    }
+
+    @PostMapping("/acknowledgeDeniedLoan")
+    public String acknowledgeDeniedLoan(@RequestParam("loanId") Long loanId, Model model) {
+        loanApplicationService.acknowledgeDeniedLoan(loanId);
+        List<LoanApplication> loanApplications = loanApplicationService.getAllPendingLoanApplications();
+        model.addAttribute("loanApplications", loanApplications);
+        return "redirect:/efinance/myLoans";
     }
 
     @GetMapping("/applyForLoan")

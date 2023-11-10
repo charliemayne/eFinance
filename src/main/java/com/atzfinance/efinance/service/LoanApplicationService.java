@@ -16,4 +16,5 @@ public interface LoanApplicationService {
     Optional<LoanApplication> getByApplicationNumber(Long applicationNumber);
     boolean approveLoan(Long applicationNumber);
     boolean denyLoan(Long applicationNumber);
+    void acknowledgeDeniedLoan(Long applicationNumber);
 }
