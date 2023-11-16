@@ -76,7 +76,20 @@
 			<artifactId>thymeleaf-extras-springsecurity5</artifactId>
 			<version>3.0.4.RELEASE</version> <!-- Check for the latest version -->
 		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>com.stripe</groupId>
+			<artifactId>stripe-java</artifactId>
+			<version>19.69.0</version> <!-- Use the latest version -->
+		</dependency>
+
 	</dependencies>
+
 
 	<build>
 		<plugins>

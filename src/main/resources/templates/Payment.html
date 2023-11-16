@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="efinance_layout">
+<head>
+    <meta charset="UTF-8">
+    <title>Payment</title>
+</head>
+<body>
+<form action="/pay" method="post">
+  <input type="number" name="amount" placeholder="Amount">
+  <button type="submit">Pay</button>
+</form>
+</body>
+</html>
