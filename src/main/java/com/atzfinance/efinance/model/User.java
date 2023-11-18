@@ -18,10 +18,17 @@ import java.util.List;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    // instance variable
     private long id;
     private String username;
     private String email;
     private String password;
+
+    // more information that needs to be added to MySQL
+    private String address;
+    private int fourSocialSecurity;
+    private int annualIncome;
+
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(
             name = "users_roles",
