@@ -32,6 +32,11 @@ public class LoanApplicationServiceImpl implements LoanApplicationService {
     }
 
     @Override
+    public void save(LoanApplication loanApp) {
+        loanApplicationRepository.save(loanApp);
+    }
+
+    @Override
     public List<LoanApplication> getAllPendingLoanApplications() {
         return loanApplicationRepository.findByActiveTrueAndReadyForCustomerFalse();
     }

@@ -31,6 +31,26 @@
                 </a>
             </div>
         </div>
+
+        <h1>Loans</h1>
+
+        <div th:if="${#lists.isEmpty(loanAccounts)}">
+            <p>No loans to display.</p>
+        </div>
+
+        <div th:unless="${#lists.isEmpty(loanAccounts)}">
+            <div th:each="loan : ${loanAccounts}">
+                <div class="card h-100" >
+                    <div class="card-body">
+                        <h2><span th:text="${loan.purpose}"></span> Loan Application - ID: <span th:text="${loan.id}"></span></h2>
+                        <p>Initial Amount: <span th:text="${loan.amount}"></span></p>
+                        <p>Current Balance: <span th:text="${loan.currentBalance}"></span></p>
+                        <!-- Add more details as needed -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
 </section>
 </body>

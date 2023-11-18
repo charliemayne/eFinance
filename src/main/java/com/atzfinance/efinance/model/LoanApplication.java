@@ -32,6 +32,10 @@ public class LoanApplication {
     @JoinColumn(name = "user_id")
     private User applicantUser;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "signingEmployee")
+    private User signingEmployee;
+
     public void setApplicationNumber(long applicationNumber) {
         this.applicationNumber = applicationNumber;
     }

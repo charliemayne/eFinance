@@ -11,6 +11,7 @@ import java.util.Optional;
 @Service
 public interface LoanApplicationService {
     void saveLoanApplication(LoanApplicationDto loanApplicationDto, User applicantUser);
+    void save(LoanApplication loanApp);
     List<LoanApplication> getAllPendingLoanApplications();
     List<LoanApplication> getCustomersLoans(String username);
     Optional<LoanApplication> getByApplicationNumber(Long applicationNumber);

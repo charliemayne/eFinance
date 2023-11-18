@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Getter
@@ -20,6 +21,15 @@ public class LoanAccount {
     private long id;
     private String name;
     private double amount;
+    private double currentBalance;
+    private Date creationDate;
+    private String purpose;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "customer_id")
+    private User customer;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "employee_id")
+    private User approvingEmployee;
 
     public void makePayment(double payment) {
         setAmount(amount - payment);
