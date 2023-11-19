@@ -177,4 +177,10 @@ public class EFinanceController {
         }
         return "redirect:/efinance/reviewLoans?error=true";
     }
+
+    @PostMapping("/payment/{loanId}")
+    public String payment() {
+        return "null";
+    }
+
 }
