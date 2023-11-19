@@ -46,10 +46,18 @@
                         <p>Initial Amount: <span th:text="${loan.amount}"></span></p>
                         <p>Current Balance: <span th:text="${loan.currentBalance}"></span></p>
                         <!-- Add more details as needed -->
+
+                        <form th:action="@{/efinance/payment}" method="post" class="mt-2">
+                            <input type="hidden" th:name="loanId" th:value="${loan.id}" />
+                            <button type="submit" class="btn btn-danger">Payment</button>
+                        </form>
+
+                    </div>
                     </div>
                 </div>
             </div>
         </div>
+
 
     </div>
 </section>

@@ -28,6 +28,7 @@ public class LoanApplication {
     private String purpose;
     private Date applicationDate;
 
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User applicantUser;

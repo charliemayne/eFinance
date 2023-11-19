@@ -31,6 +31,10 @@ public class LoanAccount {
     @JoinColumn(name = "employee_id")
     private User approvingEmployee;
 
+    // for payments
+    @ManyToMany(mappedBy = "payment")
+    private List<Payment> invoices = new ArrayList<>();
+
     public void makePayment(double payment) {
         setAmount(amount - payment);
     }
