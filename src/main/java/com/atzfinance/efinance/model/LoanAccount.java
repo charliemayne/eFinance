@@ -6,7 +6,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -16,6 +15,7 @@ import java.util.List;
 @AllArgsConstructor
 @Entity(name = "loan_account")
 public class LoanAccount {
+    // instance variables
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
@@ -31,6 +31,12 @@ public class LoanAccount {
     @JoinColumn(name = "employee_id")
     private User approvingEmployee;
 
+
+    // for payments
+    //@ManyToMany(mappedBy = "payment")
+    //private List<Payment> invoices = new ArrayList<>();
+
+    // methods
     public void makePayment(double payment) {
         setAmount(amount - payment);
     }

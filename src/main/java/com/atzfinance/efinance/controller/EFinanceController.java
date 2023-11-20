@@ -18,16 +18,20 @@ import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Mapping for EFinance Application User and Customer Dashboard
+ * Date: 11/19/23
+ * @authors charlimayene,roselam
+ */
+
 @Controller
 @RequestMapping("/efinance")
 public class EFinanceController {
-
+    // instance variables
     @Autowired
     private UserService userService;
-
     @Autowired
     private LoanApplicationService loanApplicationService;
-
     @Autowired
     private LoanAccountService loanAccountService;
 
@@ -56,6 +60,7 @@ public class EFinanceController {
         return "customer_loans";
     }
 
+    // o
     @GetMapping("/myLoans/{loanId}")
     public String customerLoanPage(@PathVariable("loanId") Long loanId, Model model) {
         Optional<LoanApplication> loanApplication = loanApplicationService.getByApplicationNumber(loanId);
@@ -177,4 +182,10 @@ public class EFinanceController {
         }
         return "redirect:/efinance/reviewLoans?error=true";
     }
+
+    @PostMapping("/payment/{loanId}")
+    public String payment() {
+        return "null";
+    }
+
 }
