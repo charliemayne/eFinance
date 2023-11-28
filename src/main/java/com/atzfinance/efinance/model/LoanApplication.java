@@ -7,7 +7,11 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.Date;
-
+/**
+ * LoanApplication
+ * Date: 11/19/23
+ * @authors roselam
+ */
 @Getter
 @Setter
 @NoArgsConstructor

@@ -8,7 +8,11 @@ import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.List;
-
+/**
+ * The user model class
+ * Date: 11/19/23
+ * @authors charlimayene
+ */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

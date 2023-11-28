@@ -103,6 +103,7 @@ public class EFinanceController {
         if (loanApp.isPresent()) {
             // create loan account
             loanAccountService.saveLoanAccount(loanApp.get());
+
             // close loanApp
             loanApp.get().setActive(false);
             loanApplicationService.save(loanApp.get());
@@ -183,9 +184,29 @@ public class EFinanceController {
         return "redirect:/efinance/reviewLoans?error=true";
     }
 
-    @PostMapping("/payment/{loanId}")
-    public String payment() {
-        return "null";
+    @PostMapping("/myLoans/payment/{loanId}")
+    public String paymentID(@PathVariable("loanId") Long loanId, Model model) {
+        Optional<LoanAccount> loanAccount = loanAccountService.getByID(loanId);
+        if (loanAccount.isPresent()) {
+            model.addAttribute("loanAccount", loanAccount.get());
+        }
+        return "payment";
     }
+    /*
+    @PostMapping("/payment/{loanId}")
+    public String payment(@RequestParam("loanId") Long loanId) {
+        Optional<LoanAccount> loanAccount = loanAccountService.getByID(loanId);
+        if (loanAccount.isPresent()) {
+            // create loan account
+            loanAccountService.submitPayment(loanAccount.get());
+
+
+            return "redirect:/efinance/myLoans";
+        } else {
+            return "redirect:/efinance/myLoans";
+        }
+    }
+
+     */
 
 }

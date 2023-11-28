@@ -6,7 +6,11 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
-
+/**
+ * The Loan Application Repository
+ * Date: 11/19/23
+ * @authors charlimayene
+ */
 @Repository
 public interface LoanApplicationRepository extends JpaRepository<LoanApplication, Long> {
     Optional<LoanApplication> findByApplicationNumber(Long id);

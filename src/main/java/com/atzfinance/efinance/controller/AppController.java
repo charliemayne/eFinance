@@ -2,8 +2,12 @@ package com.atzfinance.efinance.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 
+/**
+ * The AppController routes the home page of the application
+ * Date: 11/19/23
+ * @authors charlimayene
+ */
 @Controller
 public class AppController {
 
