@@ -1,10 +1,12 @@
 package com.atzfinance.efinance.controller;
 
 import com.atzfinance.efinance.dto.LoanApplicationDto;
+import com.atzfinance.efinance.model.Inquiry;
 import com.atzfinance.efinance.model.LoanAccount;
 import com.atzfinance.efinance.model.LoanApplication;
 import com.atzfinance.efinance.model.User;
 import com.atzfinance.efinance.security.SecurityUtil;
+import com.atzfinance.efinance.service.InquiryService;
 import com.atzfinance.efinance.service.LoanAccountService;
 import com.atzfinance.efinance.service.LoanApplicationService;
 import com.atzfinance.efinance.service.UserService;
@@ -34,6 +36,8 @@ public class EFinanceController {
     private LoanApplicationService loanApplicationService;
     @Autowired
     private LoanAccountService loanAccountService;
+    @Autowired
+    private InquiryService inquiryService;
 
     @GetMapping
     public String dashboardPage(Model model, Principal principal) {
@@ -186,6 +190,14 @@ public class EFinanceController {
     @PostMapping("/payment/{loanId}")
     public String payment() {
         return "null";
+    }
+
+    @GetMapping("/inquiry")
+    public String inquiryFormPage() {
+
+        //List<Inquiry> inquiries = InquiryService.getAllInquiries();
+
+        return "inquriy_form";
     }
 
 }
