@@ -47,6 +47,16 @@
                         <p>Current Balance: <span th:text="${loan.currentBalance}"></span></p>
                         <!-- Add more details as needed -->
 
+                        <div>
+                            <label for="loanPurpose">Loan Purpose:</label>
+                            <select id="loanPurpose" name="loanPurpose" >
+                                <option value="Personal">Personal</option>
+                                <option value="Auto">Auto</option>
+                                <option value="Renovation">Renovation</option>
+                                <option value="Business">Business</option>
+                            </select>
+                        </div>
+
 
                         <form th:action="@{/efinance/payment{id}(id=${loan.id})}" method="post" class="mt-2">
                             <input type="hidden" th:name="loanId" th:value="${loan.id}" />

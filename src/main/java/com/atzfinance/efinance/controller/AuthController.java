@@ -13,6 +13,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.Optional;
 
+/**
+ * The AuthControl routes the logging in and registration of the app
+ * Date: 11/19/23
+ * @authors charlimayene
+ */
 @Controller
 public class AuthController {
 

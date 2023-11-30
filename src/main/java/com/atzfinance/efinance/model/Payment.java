@@ -10,7 +10,11 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.Date;
-
+/**
+ * Payment
+ * Date: 11/19/23
+ * @authors roselam
+ */
 @Getter
 @Setter
 @NoArgsConstructor
@@ -24,11 +28,28 @@ public class Payment {
     private Date submissionDate;
     private double amount;
 
-
-
-    
-
-
-
-
+    public long getInvoice() {
+        return invoice;
+    }
+    public void setInvoice(long invoice) {
+        this.invoice = invoice;
+    }
+    public String getBankName() {
+        return bankName;
+    }
+    public void setBankName(String bankName) {
+        this.bankName = bankName;
+    }
+    public Date getSubmissionDate() {
+        return submissionDate;
+    }
+    public void setSubmissionDate(Date submissionDate) {
+        this.submissionDate = submissionDate;
+    }
+    public double getAmount() {
+        return amount;
+    }
+    public void setAmount(double amount) {
+        this.amount = amount;
+    }
 }

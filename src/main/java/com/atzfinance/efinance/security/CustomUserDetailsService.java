@@ -11,7 +11,11 @@ import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 import java.util.stream.Collectors;
-
+/**
+ * Custom User Details Service
+ * Date: 11/19/23
+ * @authors charlimayene
+ */
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
     @Autowired

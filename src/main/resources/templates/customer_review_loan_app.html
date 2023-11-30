@@ -21,7 +21,7 @@
         </div>
 
         <!-- Action buttons -->
-        <!-- needs to have accept funds and decline buttons if readyForCustomer -->
+        <!-- needs to have accept the funds and decline buttons if readyForCustomer -->
         <div th:if="${loanApplication.readyForCustomer and loanApplication.approved}" class="mt-3">
             <form method="post" role="form" th:action="@{/efinance/acceptLoan}">
                 <input type="hidden" th:name="loanId" th:value="${loanApplication.applicationNumber}" />

@@ -5,6 +5,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
+/**
+ * The AfterStartup class
+ * Date: 11/19/23
+ * @authors charlimayene,roselam
+ */
 
 @Component
 public class AfterStartup {
