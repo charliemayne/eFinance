@@ -6,7 +6,11 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
-
+/**
+ * The LoanAccountRepository
+ * Date: 11/19/23
+ * @authors charlimayene,roselam
+ */
 @Repository
 public interface LoanAccountRepository extends JpaRepository<LoanAccount, Long> {
     Optional<LoanAccount> findByName(String name);

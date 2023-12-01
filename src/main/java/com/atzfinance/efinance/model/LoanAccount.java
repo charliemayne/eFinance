@@ -6,8 +6,15 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+/**
+ * LoanAccount
+ * Date: 11/19/23
+ * @authors roselam
+ */
 
 @Getter
 @Setter
@@ -33,8 +40,8 @@ public class LoanAccount {
 
 
     // for payments
-    //@ManyToMany(mappedBy = "payment")
-    //private List<Payment> invoices = new ArrayList<>();
+    @OneToMany(mappedBy = "loanAccount")
+    private List<Payment> invoices = new ArrayList<>();
 
     // methods
     public void makePayment(double payment) {

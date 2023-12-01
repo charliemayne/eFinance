@@ -5,7 +5,11 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
-
+/**
+ * User Repository
+ * Date: 11/19/23
+ * @authors charlimayene
+ */
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
     @Override
