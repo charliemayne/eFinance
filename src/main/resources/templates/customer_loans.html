@@ -23,7 +23,7 @@
                             <h2 th:if="${loanApp.readyForCustomer and loanApp.approved}" style="color: green">Ready to review!</h2>
                             <h2 th:if="${loanApp.readyForCustomer and !loanApp.approved}" style="color: red">Loan denied. Please acknowledge.</h2>
                             <h2><span th:text="${loanApp.purpose}"></span> Loan Application - ID: <span th:text="${loanApp.applicationNumber}"></span></h2>
-                            <p>Amount Requested: <span th:text="${loanApp.amount}"></span></p>
+                            <p>Amount Requested: $<span th:text="${loanApp.amount}"></span></p>
                             <p>Applicant Name: <span th:text="${loanApp.applicantName}"></span></p>
                             <!-- Add more details as needed -->
                         </div>
@@ -43,19 +43,9 @@
                 <div class="card h-100" >
                     <div class="card-body">
                         <h2><span th:text="${loan.purpose}"></span> Loan Application - ID: <span th:text="${loan.id}"></span></h2>
-                        <p>Initial Amount: <span th:text="${loan.amount}"></span></p>
-                        <p>Current Balance: <span th:text="${loan.currentBalance}"></span></p>
+                        <p>Initial Amount: $<span th:text="${loan.amount}"></span></p>
+                        <p>Current Balance: $<span th:text="${loan.currentBalance}"></span></p>
                         <!-- Add more details as needed -->
-
-                        <div>
-                            <label for="loanPurpose">Loan Purpose:</label>
-                            <select id="loanPurpose" name="loanPurpose" >
-                                <option value="Personal">Personal</option>
-                                <option value="Auto">Auto</option>
-                                <option value="Renovation">Renovation</option>
-                                <option value="Business">Business</option>
-                            </select>
-                        </div>
 
 
                         <form th:action="@{/efinance/payment{id}(id=${loan.id})}" method="post" class="mt-2">

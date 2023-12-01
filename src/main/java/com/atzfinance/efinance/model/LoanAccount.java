@@ -40,7 +40,7 @@ public class LoanAccount {
 
 
     // for payments
-    @ManyToMany(mappedBy = "payment")
+    @OneToMany(mappedBy = "loanAccount")
     private List<Payment> invoices = new ArrayList<>();
 
     // methods
