@@ -197,7 +197,7 @@ public class EFinanceController {
 
         //List<Inquiry> inquiries = InquiryService.getAllInquiries();
 
-        return "inquriy_form";
+        return "inquiry_form";
     }
 
 }

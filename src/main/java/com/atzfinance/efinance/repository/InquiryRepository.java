@@ -2,9 +2,11 @@ package com.atzfinance.efinance.repository;
 
 import com.atzfinance.efinance.model.Inquiry;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+@Repository
 public interface InquiryRepository extends JpaRepository<Inquiry, Long> {
 
     // Query method to find inquiries by email
