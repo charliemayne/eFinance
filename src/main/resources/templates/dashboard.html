@@ -8,23 +8,30 @@
 <body>
     <!-- The content inside layout:fragment="content" will replace the placeholder in the layout -->
     <section layout:fragment="content">
-        <h1>Hi, <span th:text="${username}"></span>!</h1>
+        <div class="container mt-5 mb-5">
+            <div class="row justify-content-center">
+                <div class="col-lg-6 col-md-8">
 
-        <!-- employee dashboard content -->
-        <div sec:authorize="hasRole('ROLE_EMPLOYEE')">
-            <p>There are <span th:text="${loanAppCount}"></span> loan applications to review.</p>
-            <p>There are <span th:text="${activeInquiryCount}"></span> customer inquiries to respond to</p>
-        </div>
+                    <h1>Hi, <span th:text="${username}"></span>!</h1>
 
-        <!-- customer dashboard content -->
-        <div sec:authorize="hasRole('ROLE_CUSTOMER')">
-            <div th:unless="${#lists.isEmpty(loanAccounts)}">
-                <p>You have $<span th:text="${totalBalance}"></span> left to pay in your loan accounts</p>
-                <div th:each="loan : ${loanAccounts}">
-                    <p>Loan #<span th:text="${loan.id}"></span></p>
+                    <!-- employee dashboard content -->
+                    <div sec:authorize="hasRole('ROLE_EMPLOYEE')">
+                        <p>There are <span th:text="${loanAppCount}"></span> loan applications to review.</p>
+                        <p>There are <span th:text="${activeInquiryCount}"></span> customer inquiries to respond to</p>
+                    </div>
+
+                    <!-- customer dashboard content -->
+                    <div sec:authorize="hasRole('ROLE_CUSTOMER')">
+                        <div th:unless="${#lists.isEmpty(loanAccounts)}">
+                            <p>You have $<span th:text="${totalBalance}"></span> left to pay in your loan accounts</p>
+
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>
+
     </section>
 </body>
 </html>
