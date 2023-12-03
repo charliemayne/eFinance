@@ -19,5 +19,6 @@ public interface LoanApplicationRepository extends JpaRepository<LoanApplication
     List<LoanApplication> findByActiveTrue();
     List<LoanApplication> findByActiveTrueAndReadyForCustomerFalse();
     List<LoanApplication> findByApplicantUser_UsernameAndActiveTrue(String username);
+    long countByActiveTrueAndReadyForCustomerFalse();
 }
 

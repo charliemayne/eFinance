@@ -18,4 +18,5 @@ public interface LoanApplicationService {
     boolean approveLoan(Long applicationNumber);
     boolean denyLoan(Long applicationNumber);
     void acknowledgeDeniedLoan(Long applicationNumber);
+    long getCountOfPendingLoanApplications();
 }

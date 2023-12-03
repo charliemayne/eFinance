@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:sec="http://www.w3.org/1999/xhtml"
       layout:decorate="efinance_layout">
 <head>
     <title>eFinance - Dashboard</title>
@@ -9,7 +9,17 @@
     <!-- The content inside layout:fragment="content" will replace the placeholder in the layout -->
     <section layout:fragment="content">
         <h1>Hi, <span th:text="${username}"></span>!</h1>
-        <!-- ... other page-specific content ... -->
+
+        <!-- employee dashboard content -->
+        <div sec:authorize="hasRole('ROLE_EMPLOYEE')">
+            <p>There are <span th:text="${loanAppCount}"></span> loan applications to review.</p>
+            <p>There are y customer inquiries to respond to</p>
+        </div>
+
+        <!-- customer dashboard content -->
+        <div sec:authorize="hasRole('ROLE_CUSTOMER')">
+            You have $x left to pay in your loan accounts
+        </div>
     </section>
 </body>
 </html>

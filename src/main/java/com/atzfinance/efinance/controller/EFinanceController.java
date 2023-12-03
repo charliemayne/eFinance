@@ -1,16 +1,12 @@
 package com.atzfinance.efinance.controller;
 
 import com.atzfinance.efinance.dto.LoanApplicationDto;
-import com.atzfinance.efinance.model.Inquiry;
-import com.atzfinance.efinance.model.LoanAccount;
-import com.atzfinance.efinance.model.LoanApplication;
-import com.atzfinance.efinance.model.User;
+import com.atzfinance.efinance.model.*;
+import com.atzfinance.efinance.security.CustomUserDetailsService;
 import com.atzfinance.efinance.security.SecurityUtil;
-import com.atzfinance.efinance.service.InquiryService;
-import com.atzfinance.efinance.service.LoanAccountService;
-import com.atzfinance.efinance.service.LoanApplicationService;
-import com.atzfinance.efinance.service.UserService;
+import com.atzfinance.efinance.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -38,11 +34,22 @@ public class EFinanceController {
     private LoanAccountService loanAccountService;
     @Autowired
     private InquiryService inquiryService;
+    @Autowired
+    private CustomUserDetailsService customUserDetailsService;
+    @Autowired
+    private RoleService roleService;
 
     @GetMapping
-    public String dashboardPage(Model model, Principal principal) {
-        if (principal != null) {
-            model.addAttribute("username", principal.getName());
+    public String dashboardPage(Model model) {
+        Optional<User> user = userService.getUserByUsername(SecurityUtil.getSesstionUser());
+        model.addAttribute("username", user.get().getUsername());
+        if (user.get().getRoles().contains(roleService.getByName("CUSTOMER"))) {
+            // get loan account total balance
+            // get all loan accounts maybe? Could do a pie chart
+        } else if (user.get().getRoles().contains(roleService.getByName("EMPLOYEE"))) {
+            // get counts of open loan applications and inquiries
+            long loanAppCount = loanApplicationService.getCountOfPendingLoanApplications();
+            model.addAttribute("loanAppCount", loanAppCount);
         }
         return "dashboard";
     }
