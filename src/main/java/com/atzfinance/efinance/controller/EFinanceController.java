@@ -50,6 +50,8 @@ public class EFinanceController {
             // get counts of open loan applications and inquiries
             long loanAppCount = loanApplicationService.getCountOfPendingLoanApplications();
             model.addAttribute("loanAppCount", loanAppCount);
+            long activeInquiryCount = inquiryService.getCountOfActiveInquiries();
+            model.addAttribute("activeInquiryCount", activeInquiryCount);
         }
         return "dashboard";
     }

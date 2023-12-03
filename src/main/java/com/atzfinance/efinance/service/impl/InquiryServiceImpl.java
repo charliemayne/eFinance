@@ -27,4 +27,9 @@ public class InquiryServiceImpl implements InquiryService {
     public List<Inquiry> getAllInquiries() {
         return inquiryRepository.findAll();
     }
+
+    @Override
+    public long getCountOfActiveInquiries() {
+        return inquiryRepository.countByActiveTrue();
+    }
 }

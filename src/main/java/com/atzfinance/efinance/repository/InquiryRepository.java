@@ -20,4 +20,7 @@ public interface InquiryRepository extends JpaRepository<Inquiry, Long> {
 
     // Custom query method to find inquiries containing a certain keyword in the message
     List<Inquiry> findByMessageContaining(String keyword);
+
+    // custom query method to find count of active inquiries (for employee dashboard)
+    long countByActiveTrue();
 }

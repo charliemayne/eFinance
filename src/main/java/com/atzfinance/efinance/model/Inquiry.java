@@ -24,6 +24,7 @@ public class Inquiry {
     private String email;
     private String message;
     private LocalDateTime timestamp; // Use java.time.LocalDateTime for timestamp
+    private boolean active;
 
     public void setTimestamp(LocalDateTime now) {
     }

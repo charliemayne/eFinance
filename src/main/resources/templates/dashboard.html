@@ -13,7 +13,7 @@
         <!-- employee dashboard content -->
         <div sec:authorize="hasRole('ROLE_EMPLOYEE')">
             <p>There are <span th:text="${loanAppCount}"></span> loan applications to review.</p>
-            <p>There are y customer inquiries to respond to</p>
+            <p>There are <span th:text="${activeInquiryCount}"></span> customer inquiries to respond to</p>
         </div>
 
         <!-- customer dashboard content -->
