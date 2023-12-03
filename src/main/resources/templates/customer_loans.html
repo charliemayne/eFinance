@@ -8,59 +8,61 @@
 <body>
 <!-- The content inside layout:fragment="content" will replace the placeholder in the layout -->
 <section layout:fragment="content">
-    <div class="container mt-5">
-        <h1>Loan Applications</h1>
+    <div class="container mt-5 mb-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-6 col-md-8">
 
-        <div th:if="${#lists.isEmpty(loanApplications)}">
-            <p>No loan applications to display.</p>
-        </div>
+                <h1>Loan Applications</h1>
 
-        <div th:unless="${#lists.isEmpty(loanApplications)}">
-            <div th:each="loanApp : ${loanApplications}">
-                <a th:href="@{/efinance/myLoans/{id}(id=${loanApp.applicationNumber})}" style="text-decoration: none; color: inherit;">
-                    <div class="card h-100" th:styleappend="${loanApp.readyForCustomer} ? (${loanApp.approved} ? 'border-color: green;' : 'border-color: red;') : ''">
-                        <div class="card-body">
-                            <h2 th:if="${loanApp.readyForCustomer and loanApp.approved}" style="color: green">Ready to review!</h2>
-                            <h2 th:if="${loanApp.readyForCustomer and !loanApp.approved}" style="color: red">Loan denied. Please acknowledge.</h2>
-                            <h2><span th:text="${loanApp.purpose}"></span> Loan Application - ID: <span th:text="${loanApp.applicationNumber}"></span></h2>
-                            <p>Amount Requested: $<span th:text="${loanApp.amount}"></span></p>
-                            <p>Applicant Name: <span th:text="${loanApp.applicantName}"></span></p>
-                            <!-- Add more details as needed -->
+                <div th:if="${#lists.isEmpty(loanApplications)}">
+                    <p>No loan applications to display.</p>
+                </div>
+
+                <div th:unless="${#lists.isEmpty(loanApplications)}">
+                    <div th:each="loanApp : ${loanApplications}">
+                        <a th:href="@{/efinance/myLoans/{id}(id=${loanApp.applicationNumber})}" style="text-decoration: none; color: inherit;">
+                            <div class="card h-100" th:styleappend="${loanApp.readyForCustomer} ? (${loanApp.approved} ? 'border-color: green;' : 'border-color: red;') : ''">
+                                <div class="card-body">
+                                    <h2 th:if="${loanApp.readyForCustomer and loanApp.approved}" style="color: green">Ready to review!</h2>
+                                    <h2 th:if="${loanApp.readyForCustomer and !loanApp.approved}" style="color: red">Loan denied. Please acknowledge.</h2>
+                                    <h2><span th:text="${loanApp.purpose}"></span> Loan Application - ID: <span th:text="${loanApp.applicationNumber}"></span></h2>
+                                    <p>Amount Requested: $<span th:text="${loanApp.amount}"></span></p>
+                                    <p>Applicant Name: <span th:text="${loanApp.applicantName}"></span></p>
+                                    <!-- Add more details as needed -->
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+                <h1>Loans</h1>
+
+                <div th:if="${#lists.isEmpty(loanAccounts)}">
+                    <p>No loans to display.</p>
+                </div>
+
+                <div th:unless="${#lists.isEmpty(loanAccounts)}">
+                    <div th:each="loan : ${loanAccounts}">
+                        <div class="card h-100" >
+                            <div class="card-body">
+                                <h2><span th:text="${loan.purpose}"></span> Loan Application - ID: <span th:text="${loan.id}"></span></h2>
+                                <p>Initial Amount: $<span th:text="${loan.amount}"></span></p>
+                                <p>Current Balance: $<span th:text="${loan.currentBalance}"></span></p>
+                                <!-- Add more details as needed -->
+
+
+                                <form th:action="@{/efinance/payment{id}(id=${loan.id})}" method="post" class="mt-2">
+                                    <input type="hidden" th:name="loanId" th:value="${loan.id}" />
+                                    <button type="submit" class="btn btn-danger">Payment</button>
+                                </form>
+
+                            </div>
+                            </div>
                         </div>
-                    </div>
-                </a>
-            </div>
-        </div>
-
-        <h1>Loans</h1>
-
-        <div th:if="${#lists.isEmpty(loanAccounts)}">
-            <p>No loans to display.</p>
-        </div>
-
-        <div th:unless="${#lists.isEmpty(loanAccounts)}">
-            <div th:each="loan : ${loanAccounts}">
-                <div class="card h-100" >
-                    <div class="card-body">
-                        <h2><span th:text="${loan.purpose}"></span> Loan Application - ID: <span th:text="${loan.id}"></span></h2>
-                        <p>Initial Amount: $<span th:text="${loan.amount}"></span></p>
-                        <p>Current Balance: $<span th:text="${loan.currentBalance}"></span></p>
-                        <!-- Add more details as needed -->
-
-
-                        <form th:action="@{/efinance/payment{id}(id=${loan.id})}" method="post" class="mt-2">
-                            <input type="hidden" th:name="loanId" th:value="${loan.id}" />
-                            <button type="submit" class="btn btn-danger">Payment</button>
-                        </form>
-
-                    </div>
                     </div>
                 </div>
             </div>
         </div>
-
-
-    </div>
 </section>
 </body>
 </html>
