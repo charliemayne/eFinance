@@ -21,7 +21,7 @@
             <div th:unless="${#lists.isEmpty(loanAccounts)}">
                 <p>You have $<span th:text="${totalBalance}"></span> left to pay in your loan accounts</p>
                 <div th:each="loan : ${loanAccounts}">
-                    <p>Loan #<span th:text="${loan.id}"</span></p>
+                    <p>Loan #<span th:text="${loan.id}"></span></p>
                 </div>
             </div>
         </div>

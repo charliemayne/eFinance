@@ -5,6 +5,7 @@ import com.atzfinance.efinance.model.*;
 import com.atzfinance.efinance.security.CustomUserDetailsService;
 import com.atzfinance.efinance.security.SecurityUtil;
 import com.atzfinance.efinance.service.*;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -40,7 +41,7 @@ public class EFinanceController {
     private RoleService roleService;
 
     @GetMapping
-    public String dashboardPage(Model model) {
+    public String dashboardPage(Model model) throws JsonProcessingException {
         Optional<User> user = userService.getUserByUsername(SecurityUtil.getSesstionUser());
         model.addAttribute("username", user.get().getUsername());
         if (user.get().getRoles().contains(roleService.getByName("CUSTOMER"))) {
@@ -176,7 +177,7 @@ public class EFinanceController {
 
     @PostMapping("/approveLoan")
     public String approveLoan(@RequestParam("loanId") Long loanId, Model model) {
-        // get currently signed in user (who is the signing employee)
+        // TODO: get currently signed in user (who is the signing employee)
 
         // mark loan as ready for customer
         if (loanApplicationService.approveLoan(loanId)) {
