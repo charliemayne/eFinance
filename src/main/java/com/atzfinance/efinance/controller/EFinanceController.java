@@ -19,7 +19,7 @@ import java.util.Optional;
 /**
  * Mapping for EFinance Application User and Customer Dashboard
  * Date: 11/19/23
- * @authors charlimayene,roselam
+ * @authors charlie,roselam
  */
 
 @Controller
@@ -46,6 +46,12 @@ public class EFinanceController {
         if (user.get().getRoles().contains(roleService.getByName("CUSTOMER"))) {
             // get loan account total balance
             // get all loan accounts maybe? Could do a pie chart
+            List<LoanAccount> loanAccounts = loanAccountService.getCustomersLoans(user.get().getUsername());
+            model.addAttribute("loanAccounts", loanAccounts);
+            double totalBalance = 0;
+            for (LoanAccount loan : loanAccounts)
+                totalBalance += loan.getCurrentBalance();
+            model.addAttribute("totalBalance", totalBalance);
         } else if (user.get().getRoles().contains(roleService.getByName("EMPLOYEE"))) {
             // get counts of open loan applications and inquiries
             long loanAppCount = loanApplicationService.getCountOfPendingLoanApplications();
