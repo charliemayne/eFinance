@@ -1,15 +1,13 @@
 package com.atzfinance.efinance.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 
 @Getter
 @Setter
@@ -19,52 +17,29 @@ import java.time.LocalDateTime;
 public class Inquiry {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int inquiryID;
+    private long inquiryid;
     private String name;
     private String email;
     private String message;
-    private LocalDateTime timestamp; // Use java.time.LocalDateTime for timestamp
     private boolean active;
+    private Date inquiryDate;
 
-    public void setTimestamp(LocalDateTime now) {
-    }
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private User applicantName;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "signingEmployee")
+    private User signingEmployee;
 
     // getters and setters
-    public int getInquiryID() {
-        return inquiryID;
-    }
 
-    public void setInquiryID(int inquiryID) {
-        this.inquiryID = inquiryID;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
-    public LocalDateTime getTimestamp() {
-        return timestamp;
-    }
-
+    public void setInquiryID(long inquiryID){this.inquiryid = inquiryID;}
+    public void setInquiryName(String inquiryName){this.name = inquiryName;}
+    public void  setEmail(String email){this.email = email;}
+    public void setMessage(String message){this.message = message;}
+    public void setDate(Date date){this.inquiryDate = date;}
+    public void setActive(boolean active) {this.active = active;}
 }
 
