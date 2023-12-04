@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -24,8 +25,7 @@ public class InquiryServiceImpl implements InquiryService {
         inquiry.setEmail(inquiryDto.getEmail());
         inquiry.setMessage(inquiryDto.getMessage());
 
-        // inquiry.setApplicantUser(applicantUser);
-        // I keep getting an error on this one have a look
+        inquiry.setApplicantName(applicantUser);
 
         inquiry.setActive(true);
         inquiry.setDate(new Date());
@@ -36,8 +36,8 @@ public class InquiryServiceImpl implements InquiryService {
     public void save(Inquiry inquiry){inquiryRepository.save(inquiry);}
 
     @Override
-    public Optional<Inquiry> getByInquiryNumber(long inquiryNumber) {
-        return inquiryRepository.findByInquiryNumber(inquiryNumber);
+    public Optional<Inquiry> getByInquiryid(long inquiryId) {
+        return inquiryRepository.findByInquiryid(inquiryId);
     }
 
 //    @Override
@@ -49,5 +49,10 @@ public class InquiryServiceImpl implements InquiryService {
     @Override
     public long getCountOfActiveInquiries() {
         return inquiryRepository.countByActiveTrue();
+    }
+
+    @Override
+    public List<Inquiry> getCustomersInquiriesByUsername(String username) {
+        return inquiryRepository.findByApplicantName_Username(username);
     }
 }

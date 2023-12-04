@@ -17,7 +17,7 @@ import java.util.Date;
 public class Inquiry {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long inquiryNumber;
+    private long inquiryid;
     private String name;
     private String email;
     private String message;
@@ -35,7 +35,7 @@ public class Inquiry {
 
     // getters and setters
 
-    public void setInquiryID(long inquiryID){this.inquiryNumber = inquiryID;}
+    public void setInquiryID(long inquiryID){this.inquiryid = inquiryID;}
     public void setInquiryName(String inquiryName){this.name = inquiryName;}
     public void  setEmail(String email){this.email = email;}
     public void setMessage(String message){this.message = message;}

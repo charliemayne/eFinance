@@ -11,8 +11,10 @@ import java.util.Optional;
 public interface InquiryRepository extends JpaRepository<Inquiry, Long> {
 
     // Method to find inquiries by ID
-    Optional<Inquiry> findByInquiryNumber(Long id);
+    Optional<Inquiry> findByInquiryid(Long id);
 
     // custom query method to find count of active inquiries (for employee dashboard)
     long countByActiveTrue();
+
+    List<Inquiry> findByApplicantName_Username(String username);
 }

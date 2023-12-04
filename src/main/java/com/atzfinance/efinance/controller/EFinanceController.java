@@ -228,11 +228,18 @@ public class EFinanceController {
         Optional<User> user = userService.getUserByUsername(SecurityUtil.getSesstionUser());
         if(user.isPresent() && inquiryDto != null){
             inquiryService.saveInquiry(inquiryDto, user.get());
-            return "redirect:/efinance/submit?success=true";
+            return "redirect:/efinance/myInquiries?success=true";
         }else{
-            return "redirect:/efinance/submit?error=true";
+            return "redirect:/efinance/myInquiries?error=true";
         }
     }
 
+    @GetMapping("/myInquiries")
+    public String customersInquiries(Model model) {
+        Optional<User> user = userService.getUserByUsername(SecurityUtil.getSesstionUser());
+        List<Inquiry> inquiries = inquiryService.getCustomersInquiriesByUsername(user.get().getUsername());
+        model.addAttribute("inquiries", inquiries);
+        return "customer_inquiries";
+    }
 
 }
