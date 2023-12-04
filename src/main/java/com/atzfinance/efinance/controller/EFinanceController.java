@@ -14,6 +14,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
@@ -46,13 +47,17 @@ public class EFinanceController {
         model.addAttribute("username", user.get().getUsername());
         if (user.get().getRoles().contains(roleService.getByName("CUSTOMER"))) {
             // get loan account total balance
-            // get all loan accounts maybe? Could do a pie chart
+            // get all loan accounts maybe? Could do a chart
             List<LoanAccount> loanAccounts = loanAccountService.getCustomersLoans(user.get().getUsername());
             model.addAttribute("loanAccounts", loanAccounts);
             double totalBalance = 0;
-            for (LoanAccount loan : loanAccounts)
+            HashMap<String, Double> loanBarData = new HashMap<>();
+            for (LoanAccount loan : loanAccounts) {
                 totalBalance += loan.getCurrentBalance();
+                loanBarData.put(loan.getPurpose() + " Loan #" + loan.getId(), loan.getCurrentBalance());
+            }
             model.addAttribute("totalBalance", totalBalance);
+            model.addAttribute("loanBarData", loanBarData);
         } else if (user.get().getRoles().contains(roleService.getByName("EMPLOYEE"))) {
             // get counts of open loan applications and inquiries
             long loanAppCount = loanApplicationService.getCountOfPendingLoanApplications();
