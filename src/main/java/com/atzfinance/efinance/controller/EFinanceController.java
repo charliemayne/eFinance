@@ -1,5 +1,6 @@
 package com.atzfinance.efinance.controller;
 
+import com.atzfinance.efinance.dto.InquiryDto;
 import com.atzfinance.efinance.dto.LoanApplicationDto;
 import com.atzfinance.efinance.model.*;
 import com.atzfinance.efinance.security.CustomUserDetailsService;
@@ -214,11 +215,24 @@ public class EFinanceController {
     }
 
     @GetMapping("/inquiry")
-    public String inquiryFormPage() {
+    public String inquiryFormPage(Model model) {
 
-        //List<Inquiry> inquiries = InquiryService.getAllInquiries();
+        InquiryDto inquiryDto = new InquiryDto();
+        model.addAttribute("inquiry", inquiryDto);
 
         return "inquiry_form";
     }
+    @PostMapping("/inquiry")
+    public String submitInquiry(@ModelAttribute("inquiry") InquiryDto inquiryDto,
+                                BindingResult result, Model model){
+        Optional<User> user = userService.getUserByUsername(SecurityUtil.getSesstionUser());
+        if(user.isPresent() && inquiryDto != null){
+            inquiryService.saveInquiry(inquiryDto, user.get());
+            return "redirect:/efinance/submit?success=true";
+        }else{
+            return "redirect:/efinance/submit?error=true";
+        }
+    }
+
 
 }
