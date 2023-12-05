@@ -51,7 +51,7 @@
                                 <!-- Add more details as needed -->
 
 
-                                <form th:action="@{/efinance/payment{id}(id=${loan.id})}" method="post" class="mt-2">
+                                <form th:action="@{/efinance/myLoans/payment/{id}(id=${loan.id})}" method="get" class="mt-2">
                                     <input type="hidden" th:name="loanId" th:value="${loan.id}" />
                                     <button type="submit" class="btn btn-danger">Payment</button>
                                 </form>
