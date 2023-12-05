@@ -50,6 +50,6 @@ public class InquiryServiceImpl implements InquiryService {
 
     @Override
     public List<Inquiry> getAllPendingInquiries(){
-        return inquiryRepository.findByAllPendingInquiries();
+        return inquiryRepository.findByActiveTrue();
     }
 }
