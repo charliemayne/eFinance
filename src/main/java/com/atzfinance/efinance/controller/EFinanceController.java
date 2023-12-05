@@ -242,4 +242,11 @@ public class EFinanceController {
         return "customer_inquiries";
     }
 
+    @GetMapping("/reviewInquiries")
+    public String reviewInquiresPage(Model model){
+        List<Inquiry> reviewInquiry = inquiryService.getAllPendingInquiries();
+        model.addAttribute("reviewInquiry", reviewInquiry);
+        return "review_inquiry";
+    }
+
 }

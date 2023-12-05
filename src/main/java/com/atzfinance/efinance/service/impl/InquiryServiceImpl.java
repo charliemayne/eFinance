@@ -24,9 +24,7 @@ public class InquiryServiceImpl implements InquiryService {
         inquiry.setInquiryName(inquiryDto.getFullName());
         inquiry.setEmail(inquiryDto.getEmail());
         inquiry.setMessage(inquiryDto.getMessage());
-
         inquiry.setApplicantName(applicantUser);
-
         inquiry.setActive(true);
         inquiry.setDate(new Date());
         inquiryRepository.save(inquiry);
@@ -40,12 +38,6 @@ public class InquiryServiceImpl implements InquiryService {
         return inquiryRepository.findByInquiryid(inquiryId);
     }
 
-//    @Override
-//    public Optional<Inquiry> getByInquiryNumber(Long inquiryNumber){
-//        return inquiryRepository.findByInquiryNumber(inquiryNumber);
-//    }
-
-
     @Override
     public long getCountOfActiveInquiries() {
         return inquiryRepository.countByActiveTrue();
@@ -54,5 +46,10 @@ public class InquiryServiceImpl implements InquiryService {
     @Override
     public List<Inquiry> getCustomersInquiriesByUsername(String username) {
         return inquiryRepository.findByApplicantName_Username(username);
+    }
+
+    @Override
+    public List<Inquiry> getAllPendingInquiries(){
+        return inquiryRepository.findByAllPendingInquiries();
     }
 }
