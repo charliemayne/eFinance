@@ -184,7 +184,7 @@ public class EFinanceController {
         return "redirect:/efinance/reviewLoans?error=true";
     }
 
-    @PostMapping("/myLoans/payment/{loanId}")
+    @GetMapping("/myLoans/payment/{loanId}")
     public String paymentID(@PathVariable("loanId") Long id, Model model) {
         Optional<LoanAccount> loanAccount = loanAccountService.getByID(id);
         if (loanAccount.isPresent()) {
