@@ -185,8 +185,8 @@ public class EFinanceController {
     }
 
     @PostMapping("/myLoans/payment/{loanId}")
-    public String paymentID(@PathVariable("loanId") Long loanId, Model model) {
-        Optional<LoanAccount> loanAccount = loanAccountService.getByID(loanId);
+    public String paymentID(@PathVariable("loanId") Long id, Model model) {
+        Optional<LoanAccount> loanAccount = loanAccountService.getByID(id);
         if (loanAccount.isPresent()) {
             model.addAttribute("loanAccount", loanAccount.get());
         }
