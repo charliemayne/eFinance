@@ -19,7 +19,7 @@
                     Inquiry submitted!
                 </div>
 
-                <h1>My Inquiries</h1>
+                <h1 class="mb-5">My Inquiries</h1>
 
                 <div th:if="${#lists.isEmpty(inquiries)}">
                     <p>No open inquiries.</p>
@@ -27,7 +27,7 @@
 
                 <div th:unless="${#lists.isEmpty(inquiries)}">
                     <div th:each="inquiry : ${inquiries}">
-                        <div class="card h-100" >
+                        <div class="card h-100 mb-5" >
                             <div class="card-body">
                                 <h2><span th:text="${inquiry.name}"></span></h2>
                                 <p>Details: <span th:text="${inquiry.message}"></span></p>

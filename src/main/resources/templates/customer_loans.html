@@ -12,7 +12,7 @@
         <div class="row justify-content-center">
             <div class="col-lg-6 col-md-8">
 
-                <h1>Loan Applications</h1>
+                <h1 class="mb-5">Loan Applications</h1>
 
                 <div th:if="${#lists.isEmpty(loanApplications)}">
                     <p>No loan applications to display.</p>
@@ -21,7 +21,7 @@
                 <div th:unless="${#lists.isEmpty(loanApplications)}">
                     <div th:each="loanApp : ${loanApplications}">
                         <a th:href="@{/efinance/myLoans/{id}(id=${loanApp.applicationNumber})}" style="text-decoration: none; color: inherit;">
-                            <div class="card h-100" th:styleappend="${loanApp.readyForCustomer} ? (${loanApp.approved} ? 'border-color: green;' : 'border-color: red;') : ''">
+                            <div class="card h-100 mb-5" th:styleappend="${loanApp.readyForCustomer} ? (${loanApp.approved} ? 'border-color: green;' : 'border-color: red;') : ''">
                                 <div class="card-body">
                                     <h2 th:if="${loanApp.readyForCustomer and loanApp.approved}" style="color: green">Ready to review!</h2>
                                     <h2 th:if="${loanApp.readyForCustomer and !loanApp.approved}" style="color: red">Loan denied. Please acknowledge.</h2>
@@ -35,7 +35,7 @@
                     </div>
                 </div>
 
-                <h1>Loans</h1>
+                <h1 class="mb-5">Loans</h1>
 
                 <div th:if="${#lists.isEmpty(loanAccounts)}">
                     <p>No loans to display.</p>
@@ -43,7 +43,7 @@
 
                 <div th:unless="${#lists.isEmpty(loanAccounts)}">
                     <div th:each="loan : ${loanAccounts}">
-                        <div class="card h-100" >
+                        <div class="card h-100 mb-5" >
                             <div class="card-body">
                                 <h2><span th:text="${loan.purpose}"></span> Loan Application - ID: <span th:text="${loan.id}"></span></h2>
                                 <p>Initial Amount: $<span th:text="${loan.amount}"></span></p>
