@@ -12,6 +12,13 @@
         <div class="row justify-content-center">
             <div class="col-lg-6 col-md-8">
 
+                <div th:if="${param.error}" class="alert alert-danger">
+                    Error.
+                </div>
+                <div th:if="${param.success}" class="alert alert-success">
+                    Payment successfully posted!
+                </div>
+
                 <h1 class="mb-5">Loan Applications</h1>
 
                 <div th:if="${#lists.isEmpty(loanApplications)}">

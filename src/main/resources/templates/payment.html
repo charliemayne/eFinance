@@ -8,35 +8,57 @@
 <body>
 <section layout:fragment="content">
     <div class="container mt-4">
-        <h1>Single Payment</h1>
-        <div class="card">
-            <div class="card-body">
-                <h2 class="card-title">Loan Details</h2>
-                <p>Application ID: <span th:text="${loanAccount.id}"></span></p>
-                <p>Applicant Username: <span th:text="${loanAccount.customer.username}"></span></p>
-                <p>Current Amount: <span th:text="${loanAccount.currentBalance}"></span></p>
-                <!-- Add more details in the payment html -->
-            </div>
+        <div th:if="${param.error}" class="alert alert-danger">
+            Error.
+        </div>
+        <div th:if="${param.success}" class="alert alert-success">
+            Payment successfully posted!
+        </div>
+
+        <h1 class="mb-5">Single Payment</h1>
+        <form method="post" role="form" th:action="@{/efinance/myLoans/pay}">
+            <input type="hidden" name="loanId" th:value="${loanAccount.id}" />
 
             <div>
                 <label for="bankAccount">Bank Account:</label>
-                <select id="bankAccount" name="bankAccount" >
-                    <option value="bankName">Name</option>
+                <select id="bankAccount" name="bankAccount">
+                    <th:block th:if="${#lists.isEmpty(bankingInfos)}">
+                        <option>No saved banking info</option>
+                    </th:block>
+                    <th:block th:unless="${#lists.isEmpty(bankingInfos)}">
+                        <th:block th:each="bankInfo : ${bankingInfos}">
+                            <option th:value="${bankInfo.id}" th:text="${bankInfo.accountName}"></option>
+                        </th:block>
+                    </th:block>
                 </select>
             </div>
             <div>
                 <label for="amount">Amount:</label>
-                <input type="text" class="form-control" id="amount" name="amount" required="required"  />
+                <input type="text" class="form-control" id="amount" name="amount" required="required" />
             </div>
-
-
             <div>
                 <label for="fullName">Full Name eSignature:</label>
-                <input type="text" class="form-control" id="fullName" name="fullName" required="required"  />
+                <input type="text" class="form-control" id="fullName" name="fullName" required="required" />
             </div>
 
-            <div>
-                <button type="submit" value="payment" class="btn btn-secondary">Submit Payment</button>
+            <button type="submit" value="payment" class="btn btn-primary mb-5">Submit Payment</button>
+        </form>
+
+        <h1 class="mb-5">Previous Payments</h1>
+
+        <div th:if="${#lists.isEmpty(previousPayments)}">
+            <p>No previous payments on this loan.</p>
+        </div>
+
+        <div th:unless="${#lists.isEmpty(previousPayments)}">
+            <div th:each="payment : ${previousPayments}">
+                <div class="card h-100 mb-5">
+                    <div class="card-body">
+                        <h2>Payment ID: <span th:text="${payment.invoice}"></span></h2>
+                        <p>Amount paid: $<span th:text="${payment.amount}"></span></p>
+                        <p>Date: <span th:text="${payment.submissionDate}"></span></p>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

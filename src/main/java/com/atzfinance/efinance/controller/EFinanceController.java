@@ -3,7 +3,9 @@ package com.atzfinance.efinance.controller;
 import com.atzfinance.efinance.dto.BankingInfoDto;
 import com.atzfinance.efinance.dto.InquiryDto;
 import com.atzfinance.efinance.dto.LoanApplicationDto;
+import com.atzfinance.efinance.dto.PaymentDto;
 import com.atzfinance.efinance.model.*;
+import com.atzfinance.efinance.repository.PaymentRepository;
 import com.atzfinance.efinance.security.CustomUserDetailsService;
 import com.atzfinance.efinance.security.SecurityUtil;
 import com.atzfinance.efinance.service.*;
@@ -248,8 +250,24 @@ public class EFinanceController {
         Optional<LoanAccount> loanAccount = loanAccountService.getByID(id);
         if (loanAccount.isPresent()) {
             model.addAttribute("loanAccount", loanAccount.get());
+            // todo: get user's banking info and maybe previous payments on this loan?
+            List<BankingInfo> bankingInfos = bankingInfoService.getCustomersBankingInfo(SecurityUtil.getSesstionUser());
+            model.addAttribute("bankingInfos", bankingInfos);
+            List<Payment> previousPayments = loanAccount.get().getInvoices();
+            model.addAttribute("previousPayments", previousPayments);
         }
         return "payment";
+    }
+    @PostMapping("/myLoans/pay")
+    public String pay(@RequestParam("loanId") Long id, PaymentDto paymentDto, Model model) {
+        Optional<LoanAccount> loanAccount = loanAccountService.getByID(id);
+
+        if (loanAccountService.submitPayment(paymentDto,loanAccount.get() ,id)) {
+            // redirect to myloan with success message
+            return String.format("redirect:/efinance/myLoans?success=true", id);
+        }
+        // redirect with error message
+        return String.format("redirect:/efinance/myLoans?error=true", id);
     }
 
     @GetMapping("/bankingInfo")

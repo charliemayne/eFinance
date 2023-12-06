@@ -1,9 +1,11 @@
 package com.atzfinance.efinance.service.impl;
 
+import com.atzfinance.efinance.dto.PaymentDto;
 import com.atzfinance.efinance.model.LoanAccount;
 import com.atzfinance.efinance.model.LoanApplication;
 import com.atzfinance.efinance.model.Payment;
 import com.atzfinance.efinance.repository.LoanAccountRepository;
+import com.atzfinance.efinance.repository.PaymentRepository;
 import com.atzfinance.efinance.service.LoanAccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,7 +17,9 @@ import java.util.Optional;
 @Service
 public class LoanAccountServiceImpl implements LoanAccountService {
     @Autowired
-    private LoanAccountRepository loanAccountRepo;
+    private LoanAccountRepository loanAccountRepository;
+    @Autowired
+    private PaymentRepository paymentRepository;
 
     @Override
     public void saveLoanAccount(LoanApplication loanApp) {
@@ -33,27 +37,40 @@ public class LoanAccountServiceImpl implements LoanAccountService {
         // set loanAccount-specific values
         loanAccount.setCreationDate(new Date());
         // save with repo method
-        loanAccountRepo.save(loanAccount);
+        loanAccountRepository.save(loanAccount);
     }
     @Override
-    public void submitPayment(Long id, Payment paymentApp) {
-        Optional<LoanAccount> loanAccount = loanAccountRepo.findById(id);
+    public boolean submitPayment(PaymentDto paymentDto, LoanAccount loanAccount, Long Id) {
+        Payment payment = new Payment();
+        Optional<LoanAccount> LoanAccountFind  = loanAccountRepository.findById(Id);
 
-        if (loanAccount.isPresent()) {
-            // create payment object
-            Payment payment = new Payment();
+        payment.setBankName(paymentDto.getBankName());
+        payment.setAmount(paymentDto.getAmount());
+        payment.setSubmissionDate(new Date());
 
-        // copy over values from payment
-        payment.setAmount(paymentApp.getAmount());
+        // set the loan account associated
+        payment.setLoanAccount(loanAccount);
+
+        paymentRepository.save(payment);
+
+        if (LoanAccountFind.isPresent()) {
+            LoanAccountFind.get().setCurrentBalance(LoanAccountFind.get().getCurrentBalance() - paymentDto.getAmount());
+            loanAccountRepository.save(LoanAccountFind.get());
+            return true;
         }
+        return false;
     }
 
     @Override
     public List<LoanAccount> getCustomersLoans(String username) {
-        return loanAccountRepo.findByCustomer_Username(username);
+        return loanAccountRepository.findByCustomer_Username(username);
     }
     @Override
     public Optional<LoanAccount> getByID(Long id) {
-        return loanAccountRepo.findById(id);
+        return loanAccountRepository.findById(id);
+    }
+    @Override
+    public List<Payment> getAllPaymentInvoices() {
+        return paymentRepository.findAll();
     }
 }
