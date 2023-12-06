@@ -19,7 +19,7 @@
                     Banking info saved!
                 </div>
 
-                <h1>My Banking Information</h1>
+                <h1 class="mb-5">My Banking Information</h1>
 
                 <div th:if="${#lists.isEmpty(bankingInfos)}">
                     <p>No banking info.</p>
@@ -29,11 +29,11 @@
 <!--                    <input type="hidden" th:name="loanId" th:value="${loan.id}" />-->
 <!--                    <button type="submit" class="btn btn-danger">Payment</button>-->
 <!--                </form>-->
-                <a th:href="@{/efinance/newBankingInfo}" class="btn btn-primary">New Bank Info</a>
+                <a th:href="@{/efinance/newBankingInfo}" class="btn btn-primary mb-5">New Bank Info</a>
 
                 <div th:unless="${#lists.isEmpty(bankingInfos)}">
                     <div th:each="bank : ${bankingInfos}">
-                        <div class="card h-100" >
+                        <div class="card h-100 mb-5" >
                             <div class="card-body">
                                 <p>Bank Name: <span th:text="${bank.bankName}"></span></p>
                                 <p>Account Number: <span th:text="${bank.accountNumber}"></span></p>
