@@ -45,6 +45,10 @@ public class InquiryServiceImpl implements InquiryService {
 //        return inquiryRepository.findByInquiryNumber(inquiryNumber);
 //    }
 
+    @Override
+    public List<Inquiry>getAllPendingInquiry(){
+        return inquiryRepository.findByActiveTrue();
+    }
 
     @Override
     public long getCountOfActiveInquiries() {

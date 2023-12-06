@@ -17,4 +17,7 @@ public interface InquiryRepository extends JpaRepository<Inquiry, Long> {
     long countByActiveTrue();
 
     List<Inquiry> findByApplicantName_Username(String username);
+    List<Inquiry>findByActiveTrue();
+
+    Optional<Inquiry>findByActive(boolean status);
 }

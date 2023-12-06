@@ -15,5 +15,7 @@ public interface InquiryService {
     Optional<Inquiry> getByInquiryid(long inquiryid);
     long getCountOfActiveInquiries();
     List<Inquiry> getCustomersInquiriesByUsername(String username);
+
+    List<Inquiry> getAllPendingInquiry();
 }
 
