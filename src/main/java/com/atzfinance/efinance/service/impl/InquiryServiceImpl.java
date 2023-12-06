@@ -21,7 +21,7 @@ public class InquiryServiceImpl implements InquiryService {
     @Override
     public void saveInquiry(InquiryDto inquiryDto, User applicantUser) {
         Inquiry inquiry = new Inquiry();
-        inquiry.setInquiryName(inquiryDto.getFullName());
+        inquiry.setTitle(inquiryDto.getTitle());
         inquiry.setEmail(inquiryDto.getEmail());
         inquiry.setMessage(inquiryDto.getMessage());
 

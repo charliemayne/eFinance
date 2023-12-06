@@ -17,12 +17,20 @@ import java.util.Date;
 public class Inquiry {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column
     private long inquiryid;
-    private String name;
+    @Column
+    private String title;
+    @Column
     private String email;
+    @Column
     private String message;
+    @Column
     private boolean active;
+    @Column
     private Date inquiryDate;
+    @Column
+    private String employeeResponse;
 
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -36,7 +44,6 @@ public class Inquiry {
     // getters and setters
 
     public void setInquiryID(long inquiryID){this.inquiryid = inquiryID;}
-    public void setInquiryName(String inquiryName){this.name = inquiryName;}
     public void  setEmail(String email){this.email = email;}
     public void setMessage(String message){this.message = message;}
     public void setDate(Date date){this.inquiryDate = date;}
