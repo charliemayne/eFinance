@@ -36,7 +36,10 @@
             </div>
 
             <div>
+                <form method="post" role="form" th:action="@{/efinance/myLoans/pay}">
+                    <input type="hidden" th:name="loanId" th:value="${loanAccount.id}" />
                 <button type="submit" value="payment" class="btn btn-secondary">Submit Payment</button>
+                </form>
             </div>
 
 
