@@ -14,8 +14,7 @@ import java.util.Optional;
  */
 @Repository
 public interface PaymentRepository extends JpaRepository<Payment, Long> {
-    Optional<Payment> findbyInvoice(Long invoice);
-    Optional<Payment> findbyBankName(String bankName);
-    Optional<Payment> findByAmountPay(double amount);
-    List<Payment> findByActiveTrueAndReadyForCustomerFalse();
+    Optional<Payment> findByInvoice(long invoice);
+    Optional<Payment> findByBankName(String bankName);
+    Optional<Payment> findByAmount(double amount);
 }

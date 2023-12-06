@@ -253,8 +253,8 @@ public class EFinanceController {
         }
         return "payment";
     }
-    @GetMapping("/myLoans/pay")
-    public String pay(@RequestParam("loanId") PaymentDto paymentDto, Long id, Model model) {
+    @PostMapping("/myLoans/pay")
+    public String pay(@RequestParam("loanId") Long id, PaymentDto paymentDto, Model model) {
         Optional<LoanAccount> loanAccount = loanAccountService.getByID(id);
 
         if (loanAccountService.submitPayment(paymentDto,loanAccount.get() ,id)) {
@@ -262,10 +262,10 @@ public class EFinanceController {
             model.addAttribute("payment", payments);
 
             // redirect to myloan with success message
-            return "redirect:/efinance/myLoans?approved=true";
+            return String.format("redirect:/efinance/myLoans?success=true", id);
         }
 
-        return "redirect:/efinance/myLoans/pay?error=true";
+        return String.format("redirect:/efinance/myLoans?error=true", id);
     }
 
     @GetMapping("/bankingInfo")

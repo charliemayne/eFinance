@@ -54,7 +54,7 @@ public class LoanAccountServiceImpl implements LoanAccountService {
         paymentRepository.save(payment);
 
         if (LoanAccountFind.isPresent()) {
-            LoanAccountFind.get().setAmount(LoanAccountFind.get().getAmount() - paymentDto.getAmount());
+            LoanAccountFind.get().setCurrentBalance(LoanAccountFind.get().getCurrentBalance() - paymentDto.getAmount());
             loanAccountRepository.save(LoanAccountFind.get());
             return true;
         }
@@ -71,6 +71,6 @@ public class LoanAccountServiceImpl implements LoanAccountService {
     }
     @Override
     public List<Payment> getAllPaymentInvoices() {
-        return paymentRepository.findByActiveTrueAndReadyForCustomerFalse();
+        return paymentRepository.findAll();
     }
 }
