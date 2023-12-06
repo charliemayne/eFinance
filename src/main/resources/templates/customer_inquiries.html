@@ -25,6 +25,8 @@
                     <p>No open inquiries.</p>
                 </div>
 
+                <a class="btn btn-primary mb-5" th:href="@{/efinance/inquiry}">Submit Inquiry</a>
+
                 <div th:unless="${#lists.isEmpty(inquiries)}">
                     <div th:each="inquiry : ${inquiries}">
                         <div class="card h-100 mb-5" >

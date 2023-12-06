@@ -23,12 +23,12 @@
                 </div>
                 <div th:unless="${#lists.isEmpty(inquiry)}">
                     <div th:each="inquiry : ${inquiry}">
-                        <a th:href="@{/efinance/reviewInquiry/{id}(id=${inquiry.inquiryID})}" style="text-decoration: none; color: inherit;">
+                        <a th:href="@{/efinance/reviewInquiry/{id}(id=${inquiry.inquiryid})}" style="text-decoration: none; color: inherit;">
                             <div class="card h-100 mb-5">
                                 <div class="card-body">
-                                    <h2>Application ID: <span th:text="${inquiry.inquiryID}"></span></h2>
-                                    <p>Applicant: <span th:text="${inquiry.inquiryName}"></span></p>
-                                    <p>Email: $<span th:text="${inquiry.email}"></span></p>
+                                    <h2>Application ID: <span th:text="${inquiry.inquiryid}"></span></h2>
+                                    <p>Applicant: <span th:text="${inquiry.applicantName.username}"></span></p>
+                                    <p>Email: <span th:text="${inquiry.email}"></span></p>
                                     <p>Message: <span th:text="${inquiry.message}"></span></p>
                                     <!-- Add more details as needed -->
                                 </div>

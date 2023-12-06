@@ -16,6 +16,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
@@ -245,7 +246,7 @@ public class EFinanceController {
         return "customer_inquiries";
     }
 
-    @GetMapping("reviewInquiry")
+    @GetMapping("/reviewInquiry")
     public String reviewInquiries(Model model){
         List<Inquiry> inquiry = inquiryService.getAllPendingInquiry();
         model.addAttribute("inquiry", inquiry);
@@ -261,6 +262,7 @@ public class EFinanceController {
             List<BankingInfo> bankingInfos = bankingInfoService.getCustomersBankingInfo(SecurityUtil.getSesstionUser());
             model.addAttribute("bankingInfos", bankingInfos);
             List<Payment> previousPayments = loanAccount.get().getInvoices();
+            Collections.reverse(previousPayments);
             model.addAttribute("previousPayments", previousPayments);
         }
         return "payment";
