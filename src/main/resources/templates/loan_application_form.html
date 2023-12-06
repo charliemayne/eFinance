@@ -22,7 +22,7 @@
             Loan application successfully submitted!
           </div>
 
-          <h1>Loan Application Form</h1>
+          <h1 class="text-center">Loan Application Form</h1>
 
           <form method="post" role="form" th:action="@{/efinance/applyForLoan}">
 
@@ -46,7 +46,9 @@
               <input type="text" class="form-control" id="fullName" name="fullName" required="required"  />
             </div>
 
-            <button type="submit" value="applyForLoan" class="btn btn-secondary">Submit</button>
+            <div class="text-center">
+              <button type="submit" value="applyForLoan" class="btn btn-primary">Submit</button>
+            </div>
           </form>
 
         </div>
