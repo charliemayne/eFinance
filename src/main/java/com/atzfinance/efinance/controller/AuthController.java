@@ -48,7 +48,12 @@ public class AuthController {
             model.addAttribute("user", user);
             return "register";
         }
-        userService.saveUser(user);
-        return "redirect:/login?success";
+        try {
+            userService.saveUser(user);
+            return "redirect:/login?success";
+        } catch(Exception e) {
+            e.printStackTrace();
+            return "redirect:/register?error";
+        }
     }
 }
