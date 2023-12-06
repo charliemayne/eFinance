@@ -1,5 +1,6 @@
 package com.atzfinance.efinance.service;
 
+import com.atzfinance.efinance.dto.PaymentDto;
 import com.atzfinance.efinance.model.LoanAccount;
 import com.atzfinance.efinance.model.LoanApplication;
 import com.atzfinance.efinance.model.Payment;
@@ -13,5 +14,6 @@ public interface LoanAccountService {
     void saveLoanAccount(LoanApplication loanApp);
     List<LoanAccount> getCustomersLoans(String username);
     Optional<LoanAccount> getByID(Long id);
-    void submitPayment(Long id, Payment payment);
+    List<Payment> getAllPaymentInvoices();
+    boolean submitPayment(PaymentDto paymentDto, LoanAccount loanAccount, Long id);
 }

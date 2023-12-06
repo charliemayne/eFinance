@@ -3,7 +3,9 @@ package com.atzfinance.efinance.controller;
 import com.atzfinance.efinance.dto.BankingInfoDto;
 import com.atzfinance.efinance.dto.InquiryDto;
 import com.atzfinance.efinance.dto.LoanApplicationDto;
+import com.atzfinance.efinance.dto.PaymentDto;
 import com.atzfinance.efinance.model.*;
+import com.atzfinance.efinance.repository.PaymentRepository;
 import com.atzfinance.efinance.security.CustomUserDetailsService;
 import com.atzfinance.efinance.security.SecurityUtil;
 import com.atzfinance.efinance.service.*;
@@ -250,6 +252,20 @@ public class EFinanceController {
             model.addAttribute("loanAccount", loanAccount.get());
         }
         return "payment";
+    }
+    @GetMapping("/myLoans/pay")
+    public String pay(@RequestParam("loanId") PaymentDto paymentDto, Long id, Model model) {
+        Optional<LoanAccount> loanAccount = loanAccountService.getByID(id);
+
+        if (loanAccountService.submitPayment(paymentDto,loanAccount.get() ,id)) {
+            List<Payment> payments = loanAccountService.getAllPaymentInvoices();
+            model.addAttribute("payment", payments);
+
+            // redirect to myloan with success message
+            return "redirect:/efinance/myLoans?approved=true";
+        }
+
+        return "redirect:/efinance/myLoans/pay?error=true";
     }
 
     @GetMapping("/bankingInfo")
