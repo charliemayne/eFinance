@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="efinance_layout">
+<head>
+    <meta charset="UTF-8">
+    <title>Review Inquiry</title>
+
+</head>
+<body>
+<!-- The content inside layout:fragment="content" will replace the placeholder in the layout -->
+<section layout:fragment="content">
+    <div class="container mt-5 mb-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-6 col-md-8">
+                <div th:if="${param.acknowledge}" class="alert alert-success">
+                    Inquiry has been acknowledge.
+                </div>
+                <h1 class="mb-5">Review Inquiry</h1>
+
+                <div th:if="${#lists.isEmpty(inquiry)}">
+                    <p>No Inquiry applications.</p>
+                </div>
+                <div th:unless="${#lists.isEmpty(inquiry)}">
+                    <div th:each="inquiries : ${inquiry}">
+                        <a th:href="@{/efinance/reviewInquiry/{id}(id=${inquiries.inquiryID})}" style="text-decoration: none; color: inherit;">
+                            <div class="card h-100 mb-5">
+                                <div class="card-body">
+                                    <h2>Application ID: <span th:text="${inquiries.inquiryID}"></span></h2>
+                                    <p>Applicant: <span th:text="${inquiries.inquiryName}"></span></p>
+                                    <p>Email: $<span th:text="${inquiries.email}"></span></p>
+                                    <p>Message: <span th:text="${inquiries.message}"></span></p>
+                                    <!-- Add more details as needed -->
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+</html>

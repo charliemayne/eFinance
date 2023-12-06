@@ -243,6 +243,13 @@ public class EFinanceController {
         return "customer_inquiries";
     }
 
+    @GetMapping("reviewInquiry")
+    public String reviewInquiries(Model model){
+        List<Inquiry> inquiry = inquiryService.getAllPendingInquiry();
+        model.addAttribute("inquiry", inquiry);
+        return "review_Inquiry";
+    }
+
     @GetMapping("/myLoans/payment/{loanId}")
     public String paymentID(@PathVariable("loanId") Long id, Model model) {
         Optional<LoanAccount> loanAccount = loanAccountService.getByID(id);
