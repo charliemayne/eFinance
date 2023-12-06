@@ -247,7 +247,7 @@ public class EFinanceController {
     public String reviewInquiries(Model model){
         List<Inquiry> inquiry = inquiryService.getAllPendingInquiry();
         model.addAttribute("inquiry", inquiry);
-        return "review_Inquiry";
+        return "review_inquiry";
     }
 
     @GetMapping("/myLoans/payment/{loanId}")
