@@ -15,15 +15,21 @@
             Payment successfully posted!
         </div>
 
-        <h1>Single Payment</h1>
+        <h1 class="mb-5">Single Payment</h1>
         <form method="post" role="form" th:action="@{/efinance/myLoans/pay}">
             <input type="hidden" name="loanId" th:value="${loanAccount.id}" />
 
             <div>
                 <label for="bankAccount">Bank Account:</label>
                 <select id="bankAccount" name="bankAccount">
-                    <option value="bankName">Name</option>
-                    <!-- other options -->
+                    <th:block th:if="${#lists.isEmpty(bankingInfos)}">
+                        <option>No saved banking info</option>
+                    </th:block>
+                    <th:block th:unless="${#lists.isEmpty(bankingInfos)}">
+                        <th:block th:each="bankInfo : ${bankingInfos}">
+                            <option th:value="${bankInfo.id}" th:text="${bankInfo.accountName}"></option>
+                        </th:block>
+                    </th:block>
                 </select>
             </div>
             <div>
@@ -35,8 +41,26 @@
                 <input type="text" class="form-control" id="fullName" name="fullName" required="required" />
             </div>
 
-            <button type="submit" value="payment" class="btn btn-primary">Submit Payment</button>
+            <button type="submit" value="payment" class="btn btn-primary mb-5">Submit Payment</button>
         </form>
+
+        <h1 class="mb-5">Previous Payments</h1>
+
+        <div th:if="${#lists.isEmpty(previousPayments)}">
+            <p>No previous payments on this loan.</p>
+        </div>
+
+        <div th:unless="${#lists.isEmpty(previousPayments)}">
+            <div th:each="payment : ${previousPayments}">
+                <div class="card h-100 mb-5">
+                    <div class="card-body">
+                        <h2>Payment ID: <span th:text="${payment.invoice}"></span></h2>
+                        <p>Amount paid: $<span th:text="${payment.amount}"></span></p>
+                        <p>Date: <span th:text="${payment.submissionDate}"></span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </section>
 

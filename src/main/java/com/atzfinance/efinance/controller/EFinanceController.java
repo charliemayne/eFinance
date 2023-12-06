@@ -250,6 +250,11 @@ public class EFinanceController {
         Optional<LoanAccount> loanAccount = loanAccountService.getByID(id);
         if (loanAccount.isPresent()) {
             model.addAttribute("loanAccount", loanAccount.get());
+            // todo: get user's banking info and maybe previous payments on this loan?
+            List<BankingInfo> bankingInfos = bankingInfoService.getCustomersBankingInfo(SecurityUtil.getSesstionUser());
+            model.addAttribute("bankingInfos", bankingInfos);
+            List<Payment> previousPayments = loanAccount.get().getInvoices();
+            model.addAttribute("previousPayments", previousPayments);
         }
         return "payment";
     }
@@ -258,13 +263,10 @@ public class EFinanceController {
         Optional<LoanAccount> loanAccount = loanAccountService.getByID(id);
 
         if (loanAccountService.submitPayment(paymentDto,loanAccount.get() ,id)) {
-            List<Payment> payments = loanAccountService.getAllPaymentInvoices();
-            model.addAttribute("payment", payments);
-
             // redirect to myloan with success message
             return String.format("redirect:/efinance/myLoans?success=true", id);
         }
-
+        // redirect with error message
         return String.format("redirect:/efinance/myLoans?error=true", id);
     }
 
