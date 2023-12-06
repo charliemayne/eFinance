@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="efinance_layout">
+
+<head>
+    <title>ATZ Finance - Add Banking Info</title>
+</head>
+
+<body>
+<!-- The content inside layout:fragment="content" will replace the placeholder in the layout -->
+<section layout:fragment="content">
+    <div class="container mt-5 mb-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-6 col-md-8">
+
+                <div th:if="${param.error}" class="alert alert-danger">
+                    Error saving banking information.
+                </div>
+
+                <div th:if="${param.success}" class="alert alert-success">
+                    Banking info saved!
+                </div>
+
+                <h1 class="text-center">Add New Banking Information</h1>
+                <div class="inquiry-form">
+                    <!-- Updated form action to submit to the /inquiries/submit endpoint -->
+                    <form method="post" role="form" th:action="@{/efinance/saveBankingInfo}" id="bankingInfoForm">
+                        <div class="form-group">
+                            <label for="bankName">Bank Name</label>
+                            <input
+                                    id="bankName"
+                                    type="text"
+                                    class="form-control"
+                                    placeholder="Bank Name"
+                                    name="bankName"
+                                    required
+                            >
+                        </div>
+                        <div class="form-group">
+                            <label for="accountNumber">Account Number</label>
+                            <input
+                                    id="accountNumber"
+                                    type="text"
+                                    class="form-control"
+                                    placeholder="Account Number"
+                                    name="accountNumber"
+                                    required
+                            >
+                        </div>
+                        <div class="form-group">
+                            <label for="accountName">Account Name</label>
+                            <input
+                                    id="accountName"
+                                    type="text"
+                                    class="form-control"
+                                    placeholder="Account Name"
+                                    name="accountName"
+                                    required
+                            >
+                        </div>
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-secondary">Save Banking Info</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- ... other page-specific content ... -->
+</body>
+
+</html>

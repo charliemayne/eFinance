@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:sec="http://www.w3.org/1999/xhtml"
       layout:decorate="efinance_layout">
 <head>
     <title>eFinance - Dashboard</title>
@@ -8,8 +8,100 @@
 <body>
     <!-- The content inside layout:fragment="content" will replace the placeholder in the layout -->
     <section layout:fragment="content">
-        <h1>Hi, <span th:text="${username}"></span>!</h1>
-        <!-- ... other page-specific content ... -->
+        <div class="container mt-5 mb-5">
+            <div class="row justify-content-center">
+                <div class="col-lg-6 col-md-8">
+
+                    <h1>Hi, <span th:text="${username}"></span>!</h1>
+
+                    <!-- employee dashboard content -->
+                    <div sec:authorize="hasRole('ROLE_EMPLOYEE')">
+                        <div class="mb-5">
+                            <p>There are <span th:text="${loanAppCount}"></span> loan applications to review.</p>
+                            <a class="btn btn-primary" th:href="@{/efinance/reviewLoans}">Review Applications</a>
+                        </div>
+
+                        <div class="mb-5">
+                            <p>There are <span th:text="${activeInquiryCount}"></span> customer inquiries to respond to</p>
+                            <a class="btn btn-primary">Review Inquiries</a>
+                        </div>
+                    </div>
+
+                    <!-- customer dashboard content -->
+                    <div sec:authorize="hasRole('ROLE_CUSTOMER')">
+                        <div th:unless="${#lists.isEmpty(loanAccounts)}">
+                            <div class="mb-5">
+                                <p>You have $<span th:text="${totalBalance}"></span> left to pay in your loan accounts</p>
+                                <a class="btn btn-primary" th:href="@{/efinance/myLoans}">View Loans</a>
+                            </div>
+
+                            <div class="mb-5">
+                                <div class="container">
+                                    <div id="container"
+                                         style="width: 550px; height: 400px; margin: 0 auto"></div>
+                                </div>
+                            </div>
+
+                            <div class="mb-5">
+                                <p>Have a question or want assistance with our services? Submit an inquiry.</p>
+                                <a class="btn btn-primary" th:href="@{/efinance/inquiry}">Submit Inquiry</a>
+                            </div>
+                        </div>
+
+                        <script
+                                src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+                        <!-- Latest compiled and minified JavaScript -->
+                        <script
+                                src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+                        <script src="https://code.highcharts.com/highcharts.js"></script>
+                        <script src="https://code.highcharts.com/modules/exporting.js"></script>
+                        <script th:inline="javascript">
+                            $(function(){
+                            Highcharts.chart('container', {
+                                chart: {
+                                    type: 'column'
+                                },
+                                title: {
+                                    text: 'Loan Account Balances'
+                                },
+
+                                xAxis: {
+                                    categories: [[${loanBarData.keySet()}]],
+                                    crosshair: true
+                                },
+                                yAxis: {
+                                    min: 0,
+                                    title: {
+                                        text: 'Current Balance'
+                                    }
+                                },
+                                tooltip: {
+                                    headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                                    pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                                    '<td style="padding:0"><b>{point.y:.1f} $</b></td></tr>',
+                                    footerFormat: '</table>',
+                                    shared: true,
+                                    useHTML: true
+                                },
+                                plotOptions: {
+                                    column: {
+                                        pointPadding: 0.2,
+                                        borderWidth: 0
+                                    }
+                                },
+                                series: [{
+                                    name: 'Current Loan Balances',
+                                    data: [[${loanBarData.values()}]]
+                                }]
+                            });
+                            });
+                        </script>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
     </section>
 </body>
 </html>

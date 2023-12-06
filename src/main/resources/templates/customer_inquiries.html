@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="efinance_layout">
+<head>
+    <title>My Inquiries</title>
+</head>
+<body>
+<!-- The content inside layout:fragment="content" will replace the placeholder in the layout -->
+<section layout:fragment="content">
+    <div class="container mt-5 mb-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-6 col-md-8">
+
+                <div th:if="${param.error}" class="alert alert-danger">
+                    Error submitting inquiry.
+                </div>
+                <div th:if="${param.success}" class="alert alert-success">
+                    Inquiry submitted!
+                </div>
+
+                <h1 class="mb-5">My Inquiries</h1>
+
+                <div th:if="${#lists.isEmpty(inquiries)}">
+                    <p>No open inquiries.</p>
+                </div>
+
+                <div th:unless="${#lists.isEmpty(inquiries)}">
+                    <div th:each="inquiry : ${inquiries}">
+                        <div class="card h-100 mb-5" >
+                            <div class="card-body">
+                                <h2><span th:text="${inquiry.name}"></span></h2>
+                                <p>Details: <span th:text="${inquiry.message}"></span></p>
+                                <!-- Add more details as needed -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+</html>

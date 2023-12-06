@@ -1,27 +1,27 @@
 package com.atzfinance.efinance.controller;
 
+import com.atzfinance.efinance.dto.BankingInfoDto;
+import com.atzfinance.efinance.dto.InquiryDto;
 import com.atzfinance.efinance.dto.LoanApplicationDto;
-import com.atzfinance.efinance.model.LoanAccount;
-import com.atzfinance.efinance.model.LoanApplication;
-import com.atzfinance.efinance.model.User;
+import com.atzfinance.efinance.model.*;
+import com.atzfinance.efinance.security.CustomUserDetailsService;
 import com.atzfinance.efinance.security.SecurityUtil;
-import com.atzfinance.efinance.service.LoanAccountService;
-import com.atzfinance.efinance.service.LoanApplicationService;
-import com.atzfinance.efinance.service.UserService;
+import com.atzfinance.efinance.service.*;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import java.security.Principal;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
 /**
  * Mapping for EFinance Application User and Customer Dashboard
  * Date: 11/19/23
- * @authors charlimayene,roselam
+ * @authors charlie,roselam
  */
 
 @Controller
@@ -34,11 +34,38 @@ public class EFinanceController {
     private LoanApplicationService loanApplicationService;
     @Autowired
     private LoanAccountService loanAccountService;
+    @Autowired
+    private InquiryService inquiryService;
+    @Autowired
+    private CustomUserDetailsService customUserDetailsService;
+    @Autowired
+    private RoleService roleService;
+    @Autowired
+    private BankingInfoService bankingInfoService;
 
     @GetMapping
-    public String dashboardPage(Model model, Principal principal) {
-        if (principal != null) {
-            model.addAttribute("username", principal.getName());
+    public String dashboardPage(Model model) throws JsonProcessingException {
+        Optional<User> user = userService.getUserByUsername(SecurityUtil.getSesstionUser());
+        model.addAttribute("username", user.get().getUsername());
+        if (user.get().getRoles().contains(roleService.getByName("CUSTOMER"))) {
+            // get loan account total balance
+            // get all loan accounts maybe? Could do a chart
+            List<LoanAccount> loanAccounts = loanAccountService.getCustomersLoans(user.get().getUsername());
+            model.addAttribute("loanAccounts", loanAccounts);
+            double totalBalance = 0;
+            HashMap<String, Double> loanBarData = new HashMap<>();
+            for (LoanAccount loan : loanAccounts) {
+                totalBalance += loan.getCurrentBalance();
+                loanBarData.put(loan.getPurpose() + " Loan #" + loan.getId(), loan.getCurrentBalance());
+            }
+            model.addAttribute("totalBalance", totalBalance);
+            model.addAttribute("loanBarData", loanBarData);
+        } else if (user.get().getRoles().contains(roleService.getByName("EMPLOYEE"))) {
+            // get counts of open loan applications and inquiries
+            long loanAppCount = loanApplicationService.getCountOfPendingLoanApplications();
+            model.addAttribute("loanAppCount", loanAppCount);
+            long activeInquiryCount = inquiryService.getCountOfActiveInquiries();
+            model.addAttribute("activeInquiryCount", activeInquiryCount);
         }
         return "dashboard";
     }
@@ -103,7 +130,6 @@ public class EFinanceController {
         if (loanApp.isPresent()) {
             // create loan account
             loanAccountService.saveLoanAccount(loanApp.get());
-
             // close loanApp
             loanApp.get().setActive(false);
             loanApplicationService.save(loanApp.get());
@@ -158,7 +184,7 @@ public class EFinanceController {
 
     @PostMapping("/approveLoan")
     public String approveLoan(@RequestParam("loanId") Long loanId, Model model) {
-        // get currently signed in user (who is the signing employee)
+        // TODO: get currently signed in user (who is the signing employee)
 
         // mark loan as ready for customer
         if (loanApplicationService.approveLoan(loanId)) {
@@ -184,6 +210,39 @@ public class EFinanceController {
         return "redirect:/efinance/reviewLoans?error=true";
     }
 
+    @PostMapping("/payment/{loanId}")
+    public String payment() {
+        return "null";
+    }
+
+    @GetMapping("/inquiry")
+    public String inquiryFormPage(Model model) {
+
+        InquiryDto inquiryDto = new InquiryDto();
+        model.addAttribute("inquiry", inquiryDto);
+
+        return "inquiry_form";
+    }
+    @PostMapping("/inquiry")
+    public String submitInquiry(@ModelAttribute("inquiry") InquiryDto inquiryDto,
+                                BindingResult result, Model model){
+        Optional<User> user = userService.getUserByUsername(SecurityUtil.getSesstionUser());
+        if(user.isPresent() && inquiryDto != null){
+            inquiryService.saveInquiry(inquiryDto, user.get());
+            return "redirect:/efinance/myInquiries?success=true";
+        }else{
+            return "redirect:/efinance/myInquiries?error=true";
+        }
+    }
+
+    @GetMapping("/myInquiries")
+    public String customersInquiries(Model model) {
+        Optional<User> user = userService.getUserByUsername(SecurityUtil.getSesstionUser());
+        List<Inquiry> inquiries = inquiryService.getCustomersInquiriesByUsername(user.get().getUsername());
+        model.addAttribute("inquiries", inquiries);
+        return "customer_inquiries";
+    }
+
     @GetMapping("/myLoans/payment/{loanId}")
     public String paymentID(@PathVariable("loanId") Long id, Model model) {
         Optional<LoanAccount> loanAccount = loanAccountService.getByID(id);
@@ -192,21 +251,32 @@ public class EFinanceController {
         }
         return "payment";
     }
-    /*
-    @PostMapping("/payment/{loanId}")
-    public String payment(@RequestParam("loanId") Long loanId) {
-        Optional<LoanAccount> loanAccount = loanAccountService.getByID(loanId);
-        if (loanAccount.isPresent()) {
-            // create loan account
-            loanAccountService.submitPayment(loanAccount.get());
 
-
-            return "redirect:/efinance/myLoans";
-        } else {
-            return "redirect:/efinance/myLoans";
-        }
+    @GetMapping("/bankingInfo")
+    public String getCustomersBankingInfo(Model model) {
+        Optional<User> user = userService.getUserByUsername(SecurityUtil.getSesstionUser());
+        List<BankingInfo> bankingInfos = bankingInfoService.getCustomersBankingInfo(user.get().getUsername());
+        model.addAttribute("bankingInfos", bankingInfos);
+        return "customer_banking_infos";
     }
 
-     */
+    @GetMapping("/newBankingInfo")
+    public String getBankingInfoForm(Model model) {
+        BankingInfoDto bankingInfoDto = new BankingInfoDto();
+        model.addAttribute("bankingInfo", bankingInfoDto);
+        return "banking_info_form";
+    }
+
+    @PostMapping("/saveBankingInfo")
+    public String saveBankingInfo(@ModelAttribute("bankingInfo") BankingInfoDto bankingInfoDto,
+                                  BindingResult result, Model model) {
+        Optional<User> user = userService.getUserByUsername(SecurityUtil.getSesstionUser());
+        if (user.isPresent() && bankingInfoDto != null) {
+            bankingInfoService.saveBankingInfo(bankingInfoDto, user.get());
+            return "redirect:/efinance/bankingInfo?success=true";
+        } else {
+            return "redirect:/efinance/newBankingInfo?error=true";
+        }
+    }
 
 }

@@ -13,7 +13,7 @@ import java.util.List;
 /**
  * LoanAccount
  * Date: 11/19/23
- * @authors roselam
+ * @authors charlie, roselam
  */
 
 @Getter

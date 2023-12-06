@@ -8,34 +8,41 @@
 <body>
     <!-- The content inside layout:fragment="content" will replace the placeholder in the layout -->
     <section layout:fragment="content">
-        <div th:if="${param.approved}" class="alert alert-success">
-            Loan has been approved. Sent to customer to finalize.
-        </div>
-        <div th:if="${param.denied}" class="alert alert-success">
-            Loan has been denied. Sent to customer to acknowledge.
-        </div>
-        <div th:if="${param.error}" class="alert alert-danger">
-            Error approving loan. Please try again.
-        </div>
+        <div class="container mt-5 mb-5">
+            <div class="row justify-content-center">
+                <div class="col-lg-6 col-md-8">
+                    <div th:if="${param.approved}" class="alert alert-success">
+                        Loan has been approved. Sent to customer to finalize.
+                    </div>
+                    <div th:if="${param.denied}" class="alert alert-success">
+                        Loan has been denied. Sent to customer to acknowledge.
+                    </div>
+                    <div th:if="${param.error}" class="alert alert-danger">
+                        Error approving loan. Please try again.
+                    </div>
 
-        <h1>Review Loan Applications</h1>
+                    <h1 class="mb-5">Review Loan Applications</h1>
 
-        <div th:if="${#lists.isEmpty(loanApplications)}">
-            <p>No loan applications.</p>
-        </div>
+                    <div th:if="${#lists.isEmpty(loanApplications)}">
+                        <p>No loan applications.</p>
+                    </div>
 
-        <div th:unless="${#lists.isEmpty(loanApplications)}">
-            <div th:each="loanApp : ${loanApplications}">
-                <a th:href="@{/efinance/reviewLoans/{id}(id=${loanApp.applicationNumber})}" style="text-decoration: none; color: inherit;">
-                    <div class="card h-100">
-                        <div class="card-body">
-                            <h2>Application ID: <span th:text="${loanApp.applicationNumber}"></span></h2>
-                            <p>Applicant: <span th:text="${loanApp.applicantName}"></span></p>
-                            <p>Amount Requested: $<span th:text="${loanApp.amount}"></span></p>
-                            <!-- Add more details as needed -->
+                    <div th:unless="${#lists.isEmpty(loanApplications)}">
+                        <div th:each="loanApp : ${loanApplications}">
+                            <a th:href="@{/efinance/reviewLoans/{id}(id=${loanApp.applicationNumber})}" style="text-decoration: none; color: inherit;">
+                                <div class="card h-100 mb-5">
+                                    <div class="card-body">
+                                        <h2>Application ID: <span th:text="${loanApp.applicationNumber}"></span></h2>
+                                        <p>Applicant: <span th:text="${loanApp.applicantName}"></span></p>
+                                        <p>Amount Requested: $<span th:text="${loanApp.amount}"></span></p>
+                                        <p>Loan Type: <span th:text="${loanApp.purpose}"></span></p>
+                                        <!-- Add more details as needed -->
+                                    </div>
+                                </div>
+                            </a>
                         </div>
                     </div>
-                </a>
+                </div>
             </div>
         </div>
     </section>

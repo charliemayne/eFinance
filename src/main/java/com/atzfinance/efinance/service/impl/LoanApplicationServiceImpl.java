@@ -83,4 +83,9 @@ public class LoanApplicationServiceImpl implements LoanApplicationService {
             loanApplicationRepository.save(loanApplication.get());
         }
     }
+
+    @Override
+    public long getCountOfPendingLoanApplications() {
+        return loanApplicationRepository.countByActiveTrueAndReadyForCustomerFalse();
+    }
 }
