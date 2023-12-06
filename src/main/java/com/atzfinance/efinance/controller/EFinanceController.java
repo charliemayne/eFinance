@@ -1,5 +1,6 @@
 package com.atzfinance.efinance.controller;
 
+import com.atzfinance.efinance.dto.BankingInfoDto;
 import com.atzfinance.efinance.dto.InquiryDto;
 import com.atzfinance.efinance.dto.LoanApplicationDto;
 import com.atzfinance.efinance.model.*;
@@ -8,13 +9,11 @@ import com.atzfinance.efinance.security.SecurityUtil;
 import com.atzfinance.efinance.service.*;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import java.security.Principal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
@@ -41,6 +40,8 @@ public class EFinanceController {
     private CustomUserDetailsService customUserDetailsService;
     @Autowired
     private RoleService roleService;
+    @Autowired
+    private BankingInfoService bankingInfoService;
 
     @GetMapping
     public String dashboardPage(Model model) throws JsonProcessingException {
@@ -249,6 +250,33 @@ public class EFinanceController {
             model.addAttribute("loanAccount", loanAccount.get());
         }
         return "payment";
+    }
+
+    @GetMapping("/bankingInfo")
+    public String getCustomersBankingInfo(Model model) {
+        Optional<User> user = userService.getUserByUsername(SecurityUtil.getSesstionUser());
+        List<BankingInfo> bankingInfos = bankingInfoService.getCustomersBankingInfo(user.get().getUsername());
+        model.addAttribute("bankingInfos", bankingInfos);
+        return "customer_banking_infos";
+    }
+
+    @GetMapping("/newBankingInfo")
+    public String getBankingInfoForm(Model model) {
+        BankingInfoDto bankingInfoDto = new BankingInfoDto();
+        model.addAttribute("bankingInfo", bankingInfoDto);
+        return "banking_info_form";
+    }
+
+    @PostMapping("/saveBankingInfo")
+    public String saveBankingInfo(@ModelAttribute("bankingInfo") BankingInfoDto bankingInfoDto,
+                                  BindingResult result, Model model) {
+        Optional<User> user = userService.getUserByUsername(SecurityUtil.getSesstionUser());
+        if (user.isPresent() && bankingInfoDto != null) {
+            bankingInfoService.saveBankingInfo(bankingInfoDto, user.get());
+            return "redirect:/efinance/bankingInfo?success=true";
+        } else {
+            return "redirect:/efinance/newBankingInfo?error=true";
+        }
     }
 
 }
