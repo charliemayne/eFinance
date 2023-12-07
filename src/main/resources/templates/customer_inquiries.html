@@ -29,14 +29,18 @@
 
                 <div th:unless="${#lists.isEmpty(inquiries)}">
                     <div th:each="inquiry : ${inquiries}">
-                        <div class="card h-100 mb-5" >
+                        <div class="card h-100 mb-5" th:styleappend="${inquiry.didEmployeeRespond} ? 'border-color: green'">
                             <div class="card-body">
+                                <div th:if="${inquiry.didEmployeeRespond}">
+                                    <h2 style="color: green">Employee responded!</h2>
+                                </div>
                                 <h2><span th:text="${inquiry.title}"></span></h2>
-                                <p>Details: <span th:text="${inquiry.message}"></span></p>
+                                <p>Submitted: <span th:text="${inquiry.inquiryDate}"></span></p>
+                                <p>My message: <span th:text="${inquiry.message}"></span></p>
                                 <!-- Add more details as needed -->
-                                <div th:if="inquiry.didEmployeeRespond">
+                                <div th:if="${inquiry.didEmployeeRespond}">
                                     <p>Response: <span th:text="${inquiry.employeeResponse}"></span></p>
-                                    <p>Employee: <span th:text="${inquiry.signingEmployee.username}"></span></p>
+                                    <p>From: <span th:text="${inquiry.signingEmployee?.username}"></span></p>
                                 </div>
                             </div>
                         </div>

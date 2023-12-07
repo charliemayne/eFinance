@@ -15,9 +15,11 @@ public interface InquiryRepository extends JpaRepository<Inquiry, Long> {
 
     // custom query method to find count of active inquiries (for employee dashboard)
     long countByActiveTrue();
+    long countByDidEmployeeRespondFalse();
 
     List<Inquiry> findByApplicantName_Username(String username);
-    List<Inquiry>findByActiveTrue();
+    List<Inquiry> findByActiveTrue();
+    List<Inquiry> findByDidEmployeeRespondFalse();
 
     Optional<Inquiry>findByActive(boolean status);
 }

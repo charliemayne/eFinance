@@ -29,6 +29,9 @@ public class InquiryServiceImpl implements InquiryService {
 
         inquiry.setActive(true);
         inquiry.setDate(new Date());
+
+        inquiry.setDidEmployeeRespond(false);
+
         inquiryRepository.save(inquiry);
     }
 
@@ -47,7 +50,8 @@ public class InquiryServiceImpl implements InquiryService {
 
     @Override
     public List<Inquiry>getAllPendingInquiry(){
-        return inquiryRepository.findByActiveTrue();
+        //return inquiryRepository.findByActiveTrue();
+        return inquiryRepository.findByDidEmployeeRespondFalse();
     }
 
     @Override
@@ -58,7 +62,6 @@ public class InquiryServiceImpl implements InquiryService {
             inquiry.get().setSigningEmployee(employee);
             inquiry.get().setDidEmployeeRespond(true);
             inquiry.get().setEmployeeResponseDate(new Date());
-            inquiry.get().setActive(false);
             inquiryRepository.save(inquiry.get());
             return true;
         }
@@ -68,6 +71,11 @@ public class InquiryServiceImpl implements InquiryService {
     @Override
     public long getCountOfActiveInquiries() {
         return inquiryRepository.countByActiveTrue();
+    }
+
+    @Override
+    public long getCountOfInquiriesInNeedOfResponse() {
+        return inquiryRepository.countByDidEmployeeRespondFalse();
     }
 
     @Override
