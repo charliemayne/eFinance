@@ -14,6 +14,10 @@ public interface InquiryService {
     void save(Inquiry inquiry);
     Optional<Inquiry> getByInquiryid(long inquiryid);
     long getCountOfActiveInquiries();
+    long getCountOfInquiriesInNeedOfResponse();
     List<Inquiry> getCustomersInquiriesByUsername(String username);
+
+    List<Inquiry> getAllPendingInquiry();
+    boolean respondToInquiry(long inquiryid, String response, User employee);
 }
 

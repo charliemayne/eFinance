@@ -20,14 +20,14 @@
             <input type="hidden" name="loanId" th:value="${loanAccount.id}" />
 
             <div>
-                <label for="bankAccount">Bank Account:</label>
-                <select id="bankAccount" name="bankAccount">
+                <label for="bankName">Bank Account:</label>
+                <select id="bankName" name="bankName">
                     <th:block th:if="${#lists.isEmpty(bankingInfos)}">
                         <option>No saved banking info</option>
                     </th:block>
                     <th:block th:unless="${#lists.isEmpty(bankingInfos)}">
                         <th:block th:each="bankInfo : ${bankingInfos}">
-                            <option th:value="${bankInfo.id}" th:text="${bankInfo.accountName}"></option>
+                            <option th:value="${bankInfo.accountName}" th:text="${bankInfo.accountName}"></option>
                         </th:block>
                     </th:block>
                 </select>

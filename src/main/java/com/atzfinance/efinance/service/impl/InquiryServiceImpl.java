@@ -21,7 +21,7 @@ public class InquiryServiceImpl implements InquiryService {
     @Override
     public void saveInquiry(InquiryDto inquiryDto, User applicantUser) {
         Inquiry inquiry = new Inquiry();
-        inquiry.setInquiryName(inquiryDto.getFullName());
+        inquiry.setTitle(inquiryDto.getTitle());
         inquiry.setEmail(inquiryDto.getEmail());
         inquiry.setMessage(inquiryDto.getMessage());
 
@@ -29,6 +29,9 @@ public class InquiryServiceImpl implements InquiryService {
 
         inquiry.setActive(true);
         inquiry.setDate(new Date());
+
+        inquiry.setDidEmployeeRespond(false);
+
         inquiryRepository.save(inquiry);
     }
 
@@ -45,6 +48,25 @@ public class InquiryServiceImpl implements InquiryService {
 //        return inquiryRepository.findByInquiryNumber(inquiryNumber);
 //    }
 
+    @Override
+    public List<Inquiry>getAllPendingInquiry(){
+        //return inquiryRepository.findByActiveTrue();
+        return inquiryRepository.findByDidEmployeeRespondFalse();
+    }
+
+    @Override
+    public boolean respondToInquiry(long inquiryid, String response, User employee) {
+        Optional<Inquiry> inquiry = getByInquiryid(inquiryid);
+        if (inquiry.isPresent()) {
+            inquiry.get().setEmployeeResponse(response);
+            inquiry.get().setSigningEmployee(employee);
+            inquiry.get().setDidEmployeeRespond(true);
+            inquiry.get().setEmployeeResponseDate(new Date());
+            inquiryRepository.save(inquiry.get());
+            return true;
+        }
+        return false;
+    }
 
     @Override
     public long getCountOfActiveInquiries() {
@@ -52,7 +74,14 @@ public class InquiryServiceImpl implements InquiryService {
     }
 
     @Override
+    public long getCountOfInquiriesInNeedOfResponse() {
+        return inquiryRepository.countByDidEmployeeRespondFalse();
+    }
+
+    @Override
     public List<Inquiry> getCustomersInquiriesByUsername(String username) {
         return inquiryRepository.findByApplicantName_Username(username);
     }
+
+
 }
