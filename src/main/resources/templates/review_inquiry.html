@@ -14,7 +14,10 @@
         <div class="row justify-content-center">
             <div class="col-lg-6 col-md-8">
                 <div th:if="${param.acknowledge}" class="alert alert-success">
-                    Inquiry has been acknowledge.
+                    Inquiry has been acknowledged.
+                </div>
+                <div th:if="${param.error}" class="alert alert-success">
+                    Error responding.
                 </div>
                 <h1 class="mb-5">Review Inquiry</h1>
 

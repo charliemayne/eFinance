@@ -253,6 +253,29 @@ public class EFinanceController {
         return "review_inquiry";
     }
 
+    @GetMapping("/reviewInquiry/{inquiryId}")
+    public String reviewSingleInquiry(@PathVariable("inquiryId") Long id, Model model) {
+        Optional<Inquiry> inquiry = inquiryService.getByInquiryid(id);
+        if (inquiry.isPresent()) {
+            model.addAttribute("inquiry", inquiry.get());
+        }
+        return "review_single_inquiry";
+    }
+
+    @PostMapping("/reviewInquiry/respond")
+    public String respondToInquiry(@RequestParam("inquiryId") Long id, @RequestParam("response") String response, Model model) {
+        // update inquiry
+        Optional<User> currentEmployee = userService.getUserByUsername(SecurityUtil.getSesstionUser());
+        if (currentEmployee.isPresent()) {
+            if (inquiryService.respondToInquiry(id, response, currentEmployee.get())) {
+                // redirect to list of inquiries with success message
+                return "redirect:/efinance/reviewInquiry?acknowledge=true";
+            }
+        }
+        // or to single inquiry form with error message
+        return String.format("redirect:/efinance/reviewInquiry/%s?error=true", id);
+    }
+
     @GetMapping("/myLoans/payment/{loanId}")
     public String paymentID(@PathVariable("loanId") Long id, Model model) {
         Optional<LoanAccount> loanAccount = loanAccountService.getByID(id);

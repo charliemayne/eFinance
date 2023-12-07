@@ -31,9 +31,13 @@
                     <div th:each="inquiry : ${inquiries}">
                         <div class="card h-100 mb-5" >
                             <div class="card-body">
-                                <h2><span th:text="${inquiry.name}"></span></h2>
+                                <h2><span th:text="${inquiry.title}"></span></h2>
                                 <p>Details: <span th:text="${inquiry.message}"></span></p>
                                 <!-- Add more details as needed -->
+                                <div th:if="inquiry.didEmployeeRespond">
+                                    <p>Response: <span th:text="${inquiry.employeeResponse}"></span></p>
+                                    <p>Employee: <span th:text="${inquiry.signingEmployee.username}"></span></p>
+                                </div>
                             </div>
                         </div>
                     </div>

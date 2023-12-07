@@ -51,6 +51,21 @@ public class InquiryServiceImpl implements InquiryService {
     }
 
     @Override
+    public boolean respondToInquiry(long inquiryid, String response, User employee) {
+        Optional<Inquiry> inquiry = getByInquiryid(inquiryid);
+        if (inquiry.isPresent()) {
+            inquiry.get().setEmployeeResponse(response);
+            inquiry.get().setSigningEmployee(employee);
+            inquiry.get().setDidEmployeeRespond(true);
+            inquiry.get().setEmployeeResponseDate(new Date());
+            inquiry.get().setActive(false);
+            inquiryRepository.save(inquiry.get());
+            return true;
+        }
+        return false;
+    }
+
+    @Override
     public long getCountOfActiveInquiries() {
         return inquiryRepository.countByActiveTrue();
     }
@@ -59,4 +74,6 @@ public class InquiryServiceImpl implements InquiryService {
     public List<Inquiry> getCustomersInquiriesByUsername(String username) {
         return inquiryRepository.findByApplicantName_Username(username);
     }
+
+
 }

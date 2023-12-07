@@ -17,5 +17,6 @@ public interface InquiryService {
     List<Inquiry> getCustomersInquiriesByUsername(String username);
 
     List<Inquiry> getAllPendingInquiry();
+    boolean respondToInquiry(long inquiryid, String response, User employee);
 }
 

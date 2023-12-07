@@ -31,6 +31,10 @@ public class Inquiry {
     private Date inquiryDate;
     @Column
     private String employeeResponse;
+    @Column
+    private boolean didEmployeeRespond;
+    @Column
+    private Date employeeResponseDate;
 
 
     @ManyToOne(fetch = FetchType.LAZY)
