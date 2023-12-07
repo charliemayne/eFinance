@@ -41,20 +41,21 @@ public class LoanAccountServiceImpl implements LoanAccountService {
     }
     @Override
     public boolean submitPayment(PaymentDto paymentDto, LoanAccount loanAccount, Long Id) {
-        Payment payment = new Payment();
-        Optional<LoanAccount> LoanAccountFind  = loanAccountRepository.findById(Id);
+        if (paymentDto.getBankName().equals("No saved banking info")) return false;
 
+        Payment payment = new Payment();
         payment.setBankName(paymentDto.getBankName());
         payment.setAmount(paymentDto.getAmount());
         payment.setSubmissionDate(new Date());
 
         // set the loan account associated
-        payment.setLoanAccount(loanAccount);
-
-        paymentRepository.save(payment);
+        Optional<LoanAccount> LoanAccountFind  = loanAccountRepository.findById(Id);
 
         if (LoanAccountFind.isPresent()) {
+            payment.setLoanAccount(loanAccount);
+            if (LoanAccountFind.get().getCurrentBalance() - paymentDto.getAmount() < 0) return false;
             LoanAccountFind.get().setCurrentBalance(LoanAccountFind.get().getCurrentBalance() - paymentDto.getAmount());
+            paymentRepository.save(payment);
             loanAccountRepository.save(LoanAccountFind.get());
             return true;
         }

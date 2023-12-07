@@ -299,7 +299,7 @@ public class EFinanceController {
             return String.format("redirect:/efinance/myLoans?success=true", id);
         }
         // redirect with error message
-        return String.format("redirect:/efinance/myLoans?error=true", id);
+        return String.format("redirect:/efinance/myLoans/payment/%s?error=true", id);
     }
 
     @GetMapping("/bankingInfo")
