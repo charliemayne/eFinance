@@ -52,16 +52,18 @@
                     <div th:each="loan : ${loanAccounts}">
                         <div class="card h-100 mb-5" >
                             <div class="card-body">
+                                <h2 th:if="${loan.currentBalance == 0}" style="color: green">Paid off!</h2>
                                 <h2><span th:text="${loan.purpose}"></span> Loan Application - ID: <span th:text="${loan.id}"></span></h2>
                                 <p>Initial Amount: $<span th:text="${loan.amount}"></span></p>
                                 <p>Current Balance: $<span th:text="${loan.currentBalance}"></span></p>
                                 <!-- Add more details as needed -->
 
-
-                                <form th:action="@{/efinance/myLoans/payment/{id}(id=${loan.id})}" method="get" class="mt-2">
-                                    <input type="hidden" th:name="loanId" th:value="${loan.id}" />
-                                    <button type="submit" class="btn btn-danger">Payment</button>
-                                </form>
+                                <div th:if="${loan.currentBalance > 0}">
+                                    <form th:action="@{/efinance/myLoans/payment/{id}(id=${loan.id})}" method="get" class="mt-2">
+                                        <input type="hidden" th:name="loanId" th:value="${loan.id}" />
+                                        <button type="submit" class="btn btn-danger">Payment</button>
+                                    </form>
+                                </div>
 
                             </div>
                             </div>
