@@ -41,11 +41,19 @@
                                          style="width: 550px; height: 400px; margin: 0 auto"></div>
                                 </div>
                             </div>
+                        </div>
 
+                        <div th:if="${#lists.isEmpty(loanAccounts)}">
                             <div class="mb-5">
-                                <p>Have a question or want assistance with our services? Submit an inquiry.</p>
-                                <a class="btn btn-primary" th:href="@{/efinance/inquiry}">Submit Inquiry</a>
+                                <p>You don't have any active loan accounts. View your loan applications or apply for a loan.</p>
+                                <a class="btn btn-primary" th:href="@{/efinance/myLoans}">View Applications</a>
+                                <a class="btn btn-primary" th:href="@{/efinance/applyForLoan}">Apply for Loan</a>
                             </div>
+                        </div>
+
+                        <div class="mb-5">
+                            <p>Have a question or want assistance with our services? Submit an inquiry.</p>
+                            <a class="btn btn-primary" th:href="@{/efinance/inquiry}">Submit Inquiry</a>
                         </div>
 
                         <script
